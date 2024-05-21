@@ -713,6 +713,10 @@ video {
   margin-top: 3.5rem;
 }
 
+.mt-28 {
+  margin-top: 7rem;
+}
+
 .flex {
   display: flex;
 }
