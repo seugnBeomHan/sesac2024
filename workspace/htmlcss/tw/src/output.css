@@ -733,6 +733,14 @@ video {
   margin-top: 1rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -968,6 +976,10 @@ video {
 
 .list-disc {
   list-style-type: disc;
+}
+
+.list-none {
+  list-style-type: none;
 }
 
 .grid-cols-10 {
@@ -1469,6 +1481,10 @@ video {
   padding-top: 0.25rem;
 }
 
+.pr-3 {
+  padding-right: 0.75rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1608,6 +1624,11 @@ video {
 .hover\:bg-sky-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(2 132 199 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-sky-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(3 105 161 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {
