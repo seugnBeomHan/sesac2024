@@ -570,20 +570,44 @@ video {
   margin: 0.25rem;
 }
 
-.m-6 {
-  margin: 1.5rem;
+.m-2 {
+  margin: 0.5rem;
+}
+
+.m-20 {
+  margin: 5rem;
+}
+
+.m-3 {
+  margin: 0.75rem;
+}
+
+.m-4 {
+  margin: 1rem;
 }
 
 .m-0 {
   margin: 0px;
 }
 
+.m-14 {
+  margin: 3.5rem;
+}
+
 .m-5 {
   margin: 1.25rem;
 }
 
-.m-2 {
-  margin: 0.5rem;
+.m-auto {
+  margin: auto;
+}
+
+.m-10 {
+  margin: 2.5rem;
+}
+
+.m-6 {
+  margin: 1.5rem;
 }
 
 .m-auto {
@@ -654,16 +678,76 @@ video {
   margin-right: 0.75rem;
 }
 
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.ms-2 {
+  margin-inline-start: 0.5rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
+.ml-8 {
+  margin-left: 2rem;
+}
+
+.ml-7 {
+  margin-left: 1.75rem;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mt-20 {
   margin-top: 5rem;
 }
 
-.mb-5 {
-  margin-bottom: 1.25rem;
+.mt-14 {
+  margin-top: 3.5rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+.mt-28 {
+  margin-top: 7rem;
 }
 
 .mb-1 {
@@ -838,6 +922,10 @@ video {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .inline {
   display: inline;
 }
@@ -909,6 +997,10 @@ video {
 
 .h-2\/5 {
   height: 40%;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .w-12 {
@@ -985,6 +1077,10 @@ video {
 
 .max-w-96 {
   max-width: 24rem;
+}
+
+.max-w-80 {
+  max-width: 20rem;
 }
 
 .shrink-0 {
@@ -1397,6 +1493,16 @@ video {
   background-color: rgb(55 48 163 / var(--tw-bg-opacity));
 }
 
+.bg-sky-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(2 132 199 / var(--tw-bg-opacity));
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -1703,6 +1809,11 @@ video {
 .text-slate-700 {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
 .shadow-lg {
