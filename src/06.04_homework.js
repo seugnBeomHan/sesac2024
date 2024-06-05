@@ -97,6 +97,17 @@ const problem_3 = () => {
     console.log(`\n[3번 문제 다른 버전]\n`);
     const dayArr = [`일`, `월`, `화`, `수`, `목`, `금`, `토`];
     console.log(`오늘은 ${dayArr[today]}요일 입니다.`);
+
+    // 다른 버전 2
+    console.log(`\n[3번 문제 다른 버전 2]\n`);
+    const dayStr = `일월화수목금토`;
+    console.log(`오늘은 ${dayStr[today]}요일 입니다.`);
+
+    // 다른 버전 3
+    console.log(`\n[3번 문제 다른 버전 3]\n`);
+    const daySpaceStr = `일 월 화 수 목 금 토`;
+    const daySplit = daySpaceStr.split(' ');
+    console.log(`오늘은 ${daySplit[today]}요일 입니다.`);
 }
 
 /**
