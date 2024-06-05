@@ -145,6 +145,7 @@ const problem_3 = () => {
  * 0.14 + 0.28 = 0.4200000...4
  * 0.34 + 0.226 = 0.56600000...1
  */
+import { prompt } from "./Prompt.js";
 const problem_4 = () => {
     log(4, 1, ENTER_DIRECTION.FRONT);
 
@@ -167,6 +168,24 @@ const problem_4 = () => {
     console.log(addPoints(0.9823, 0.29));
     console.log(addPoints(0.8, 0.87366));
     console.log(addPoints(0.21, 0.7653));
+
+
+    const maxInputCount = 2;
+    let parameters = [];
+    prompt.on("line", input => {
+        input = parseFloat(input);
+        
+        if ((!isNaN(input)) && input % 1 !== 0) {
+            parameters.push(input);
+        }
+        if (parameters.length === maxInputCount) {
+            prompt.close();
+        }
+    });
+    prompt.on("close", () => {
+        console.log(addPoints(parameters[0], parameters[1]));
+        process.exit();
+    });
 }
 
 problem_1();
