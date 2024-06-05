@@ -15,25 +15,34 @@
  */
 const problem_1 = () => {
     console.log(`[1번 문제]\n`);
+
     const end = 1;
     for (let i = 0.1; i < end; i += 0.1) {
         console.log(i > 0.9 ? i.toFixed(0) : i.toFixed(1));
     }
+
+    // 매번 비교를 하지 않는 방법
+    console.log(`\n[1번 문제, 매번 비교하지 않는 방법]\n`);
+    
+    let i = 0.1;
+    const endVer2 = 0.9;
+    for (; i < endVer2; i += 0.1) {
+        console.log(i.toFixed(1));
+    }
+    console.log(i.toFixed(0));
 }
-problem_1();
 
 /**
  * 2. 1 ~ 10 사이의 정수에 대해 제곱근을 소숫점 3자리까지 출력하시오.
  */
 const problem_2 = () => {
     console.log(`\n[2번 문제]\n`);
+
     const end = 10;
     for (let i = 0; i < end; i += 1) {
         console.log(Math.sqrt(i) % 1 !== 0 ? `${i}의 제곱근 : ` + Math.sqrt(i).toFixed(3) : `${i}의 제곱근 : ` + Math.sqrt(i));
     }
 }
-problem_2();
-
 
 /**
  * 3. 오늘 날짜의 요일을 출력하시오.
@@ -42,6 +51,7 @@ problem_2();
  */
 const problem_3 = () => {
     console.log(`\n[3번 문제]\n`);
+
     const date = new Date();
     const today = date.getDay();
     let todayStr = '';
@@ -69,7 +79,8 @@ const problem_3 = () => {
             todayStr = '토';
             break;
         default:
-            break;
+            console.log(`잘못된 입력입니다.`);
+            return;
     }
     console.log(`오늘은 ${todayStr}요일 입니다.`);
 
@@ -78,8 +89,6 @@ const problem_3 = () => {
     const dayArr = [`일`, `월`, `화`, `수`, `목`, `금`, `토`];
     console.log(`오늘은 ${dayArr[today]}요일 입니다.`);
 }
-problem_3();
-
 
 /**
  * 4. 다음과 같이 올바른 더하기 연산을 하는 addPoints 함수를 작성하시오.
@@ -108,4 +117,8 @@ const problem_4 = () => {
     console.log(addPoints(0.8, 0.87366));
     console.log(addPoints(0.21, 0.7653));
 }
+
+problem_1();
+problem_2();
+problem_3();
 problem_4();
