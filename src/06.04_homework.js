@@ -23,7 +23,7 @@ const problem_1 = () => {
 
     // 매번 비교를 하지 않는 방법
     console.log(`\n[1번 문제, 매번 비교하지 않는 방법]\n`);
-    
+
     let i = 0.1;
     const endVer2 = 0.9;
     for (; i < endVer2; i += 0.1) {
@@ -41,6 +41,15 @@ const problem_2 = () => {
     const end = 10;
     for (let i = 0; i < end; i += 1) {
         console.log(Math.sqrt(i) % 1 !== 0 ? `${i}의 제곱근 : ` + Math.sqrt(i).toFixed(3) : `${i}의 제곱근 : ` + Math.sqrt(i));
+    }
+
+    // 문자열 및 제곱근 중복 제거 버전
+    console.log(`\n[2번 문제 중복 제거 버전]\n`);
+    for (let i = 0; i < end; i += 1) {
+        const nowSqrt = Math.sqrt(i);
+        const str = `${i}의 제곱근 : `;
+
+        console.log(nowSqrt % 1 !== 0 ? str + nowSqrt.toFixed(3) : str + nowSqrt);
     }
 }
 
