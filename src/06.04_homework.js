@@ -13,6 +13,32 @@
  * 0.9
  * 1
  */
+const ENTER_DIRECTION = {
+    FRONT: true,
+    BACK: false
+}
+
+const log = (problemNumber = 1, enterCount = 0, enterDirection = ENTER_DIRECTION.FRONT, coment = '') => {
+    const getEnter = (enterCount) => {
+        let enter = '';
+        for (let i = 0; i < enterCount; i += 1) {
+            enter += '\n';
+        }
+        return enter;
+    }
+
+    if (coment === '') {
+        enterDirection ?
+            console.log(`${getEnter(enterCount)}${problemNumber}번 문제`) :
+            console.log(`${problemNumber}번 문제${getEnter(enterCount)}`);
+        return;
+    }
+
+    enterDirection ?
+        console.log(`${getEnter(enterCount)}${problemNumber}번 문제, ${coment}`) :
+        console.log(`${problemNumber}번 문제, ${coment} ${getEnter(enterCount)}`);
+}
+
 const problem_1 = () => {
     console.log(`[1번 문제]\n`);
 
