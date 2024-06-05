@@ -1,18 +1,3 @@
-/**
- * 1. for 문을 이용하여 다음과 같이 정확한 숫자를 출력하는 코드를 작성하시오.
- * 
- * [결과]
- * 0.1
- * 0.2
- * 0.3
- * 0.4
- * 0.5
- * 0.6
- * 0.7
- * 0.8
- * 0.9
- * 1
- */
 const ENTER_DIRECTION = {
     FRONT: true,
     BACK: false
@@ -39,8 +24,23 @@ const log = (problemNumber = 1, enterCount = 0, enterDirection = ENTER_DIRECTION
         console.log(`${problemNumber}번 문제, ${coment} ${getEnter(enterCount)}`);
 }
 
+/**
+ * 1. for 문을 이용하여 다음과 같이 정확한 숫자를 출력하는 코드를 작성하시오.
+ * 
+ * [결과]
+ * 0.1
+ * 0.2
+ * 0.3
+ * 0.4
+ * 0.5
+ * 0.6
+ * 0.7
+ * 0.8
+ * 0.9
+ * 1
+ */
 const problem_1 = () => {
-    console.log(`[1번 문제]\n`);
+    log(1, 1, ENTER_DIRECTION.FRONT);
 
     const end = 1;
     for (let i = 0.1; i < end; i += 0.1) {
@@ -48,7 +48,7 @@ const problem_1 = () => {
     }
 
     // 매번 비교를 하지 않는 방법
-    console.log(`\n[1번 문제, 매번 비교하지 않는 방법]`);
+    log(1, 1, ENTER_DIRECTION.FRONT, '매번 비교하지 않는 방법');
 
     let i = 0.1;
     const endVer2 = 0.9;
@@ -62,7 +62,7 @@ const problem_1 = () => {
  * 2. 1 ~ 10 사이의 정수에 대해 제곱근을 소숫점 3자리까지 출력하시오.
  */
 const problem_2 = () => {
-    console.log(`\n[2번 문제]`);
+    log(2, 1, ENTER_DIRECTION.FRONT);
 
     const end = 10;
     for (let i = 0; i <= end; i += 1) {
@@ -70,7 +70,7 @@ const problem_2 = () => {
     }
 
     // 문자열 및 제곱근 중복 제거 버전
-    console.log(`\n[2번 문제 중복 제거 버전]`);
+    log(2, 1, ENTER_DIRECTION.FRONT, '중복 제거 버전');
     for (let i = 0; i <= end; i += 1) {
         const nowSqrt = Math.sqrt(i);
         const str = `${i}의 제곱근 : `;
@@ -85,7 +85,7 @@ const problem_2 = () => {
  *  3-2. 더 간단한 방법 고민 
  */
 const problem_3 = () => {
-    console.log(`\n[3번 문제]`);
+    log(3, 1, ENTER_DIRECTION.FRONT);
 
     const date = new Date();
     const today = date.getDay();
@@ -120,17 +120,17 @@ const problem_3 = () => {
     console.log(`오늘은 ${todayStr}요일 입니다.`);
 
     // 다른 버전 1
-    console.log(`\n[3번 문제 다른 버전]`);
+    log(3, 1, ENTER_DIRECTION.FRONT, 'simple code ver.1');
     const dayArr = [`일`, `월`, `화`, `수`, `목`, `금`, `토`];
     console.log(`오늘은 ${dayArr[today]}요일 입니다.`);
 
     // 다른 버전 2
-    console.log(`\n[3번 문제 다른 버전 2]`);
+    log(3, 1, ENTER_DIRECTION.FRONT, 'simple code ver.2');
     const dayStr = `일월화수목금토`;
     console.log(`오늘은 ${dayStr[today]}요일 입니다.`);
 
     // 다른 버전 3
-    console.log(`\n[3번 문제 다른 버전 3]`);
+    log(3, 1, ENTER_DIRECTION.FRONT, 'simple code ver.3');
     const daySpaceStr = `일 월 화 수 목 금 토`;
     const daySplit = daySpaceStr.split(' ');
     console.log(`오늘은 ${daySplit[today]}요일 입니다.`);
@@ -146,7 +146,7 @@ const problem_3 = () => {
  * 0.34 + 0.226 = 0.56600000...1
  */
 const problem_4 = () => {
-    console.log(`\n[4번 문제]`);
+    log(4, 1, ENTER_DIRECTION.FRONT);
 
     const getDigit = (number) => {
         return (number + '').length;
