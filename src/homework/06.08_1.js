@@ -1,4 +1,4 @@
-const problem1 = () => {
+(() => {
     const signiture1 = (user = {}) => {
         console.log(user.id, user.name);
     }
@@ -43,7 +43,7 @@ const problem1 = () => {
             signiture6
         ]];
 
-    const run = () => {
+    (() => {
         const [datas, funcs] = init();
         for (let func of funcs) {
             console.log('------------');
@@ -51,7 +51,5 @@ const problem1 = () => {
                 func(data);
             }
         }
-    }
-    run();
-}
-problem1();
+    })();
+})();
