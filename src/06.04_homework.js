@@ -39,43 +39,24 @@ const log = (problemNumber = 1, enterCount = 0, enterDirection = ENTER_DIRECTION
  * 0.9
  * 1
  */
-const problem_1 = () => {
-    log(1, 1, ENTER_DIRECTION.FRONT);
 
+const problem_1 = () => {
     const end = 1;
     for (let i = 0.1; i < end; i += 0.1) {
-        console.log(i > 0.9 ? i.toFixed(0) : i.toFixed(1));
+        console.log(Number(i.toFixed(1)));
     }
-
-    // 매번 비교를 하지 않는 방법
-    log(1, 1, ENTER_DIRECTION.FRONT, '매번 비교하지 않는 방법');
-
-    let i = 0.1;
-    const endVer2 = 0.9;
-    for (; i < endVer2; i += 0.1) {
-        console.log(i.toFixed(1));
-    }
-    console.log(i.toFixed(0));
 }
+
+
 
 /**
  * 2. 1 ~ 10 사이의 정수에 대해 제곱근을 소숫점 3자리까지 출력하시오.
  */
 const problem_2 = () => {
-    log(2, 1, ENTER_DIRECTION.FRONT);
-
     const end = 10;
     for (let i = 0; i <= end; i += 1) {
-        console.log(Math.sqrt(i) % 1 !== 0 ? `${i}의 제곱근 : ` + Math.sqrt(i).toFixed(3) : `${i}의 제곱근 : ` + Math.sqrt(i));
-    }
-
-    // 문자열 및 제곱근 중복 제거 버전
-    log(2, 1, ENTER_DIRECTION.FRONT, '중복 제거 버전');
-    for (let i = 0; i <= end; i += 1) {
         const nowSqrt = Math.sqrt(i);
-        const str = `${i}의 제곱근 : `;
-
-        console.log(nowSqrt % 1 !== 0 ? str + nowSqrt.toFixed(3) : str + nowSqrt);
+        console.log(nowSqrt % 1 !== 0 ? Number(nowSqrt.toFixed(3)) : nowSqrt);
     }
 }
 
@@ -85,8 +66,6 @@ const problem_2 = () => {
  *  3-2. 더 간단한 방법 고민 
  */
 const problem_3 = () => {
-    log(3, 1, ENTER_DIRECTION.FRONT);
-
     const date = new Date();
     const today = date.getDay();
     let todayStr = '';
@@ -145,10 +124,8 @@ const problem_3 = () => {
  * 0.14 + 0.28 = 0.4200000...4
  * 0.34 + 0.226 = 0.56600000...1
  */
-import { prompt } from "./Prompt.js";
+// import { prompt } from "./Prompt.js";
 const problem_4 = () => {
-    log(4, 1, ENTER_DIRECTION.FRONT);
-
     const getDigit = (number) => {
         return (number + '').length;
     }
@@ -159,7 +136,7 @@ const problem_4 = () => {
         const num2Len = getDigit(num2) - CORRECT_VALUE;
         const fixedDigit = num1Len >= num2Len ? num1Len : num2Len;
 
-        return (num1 + num2).toFixed(fixedDigit);
+        return Number((num1 + num2).toFixed(fixedDigit));
     }
 
     console.log(addPoints(0.21354, 0.1));
@@ -170,25 +147,28 @@ const problem_4 = () => {
     console.log(addPoints(0.21, 0.7653));
 
 
-    const maxInputCount = 2;
-    let parameters = [];
-    prompt.on("line", input => {
-        input = parseFloat(input);
-        
-        if ((!isNaN(input)) && input % 1 !== 0) {
-            parameters.push(input);
-        }
-        if (parameters.length === maxInputCount) {
-            prompt.close();
-        }
-    });
-    prompt.on("close", () => {
-        console.log(addPoints(parameters[0], parameters[1]));
-        process.exit();
-    });
+    // const maxInputCount = 2;
+    // let parameters = [];
+    // prompt.on("line", input => {
+    //     input = parseFloat(input);
+
+    //     if ((!isNaN(input)) && input % 1 !== 0) {
+    //         parameters.push(input);
+    //     }
+    //     if (parameters.length === maxInputCount) {
+    //         prompt.close();
+    //     }
+    // });
+    // prompt.on("close", () => {
+    //     console.log(addPoints(parameters[0], parameters[1]));
+    //     process.exit();
+    // });
 }
 
 problem_1();
+console.log('==========');
 problem_2();
+console.log('==========');
 problem_3();
+console.log('==========');
 problem_4();
