@@ -1,6 +1,6 @@
 const user = { name: 'Hong', passwd: 'xyz', addr: 'Seoul' };
 
-const getValueExceptInitial = (inputKey) => {
+const getValueExceptInitial = inputKey => {
     const { [inputKey]: value } = user;
     const [, ...result] = value;
     return result.join('');
