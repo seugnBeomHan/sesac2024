@@ -1,44 +1,14 @@
-// input zero or less check
-const isZeroOrLess = input => {
-    return input <= 0;
-}
-
 // forward
-const makeArray = arrCount => {
-    if (isZeroOrLess(arrCount)) return [];
-
-    const resArr = [];
-
-    return (function recursive(n) {
-        if (n === 1) {
-            resArr.push(n);
-            return resArr;
-        }
-        return [...recursive(n - 1), n];
-    })(arrCount);
+const makeArray = n => {
+    if (n <= 1) return [1];
+    return [...makeArray(n - 1), n];
 };
 
 // Reverse
-const makeReverseArray = arrCount => {
-    if (isZeroOrLess(arrCount)) return [];
-
-    const resArr = [];
-
-    return (function recursive(n) {
-        if (n === 1) {
-            resArr.push(n);
-            return resArr;
-        }
-        return [n, ...recursive(n - 1)];
-    })(arrCount);
+const makeReverseArray = n => {
+    if (n <= 1) return [1];
+    return [n, ...makeReverseArray(n - 1)];
 };
-
-// input error 처리, [] 리턴
-console.log(makeArray(-1));
-console.log(makeArray(0));
-
-console.log(makeReverseArray(-1));
-console.log(makeReverseArray(0));
 
 // 1 ~ 50까지 테스트
 for (let i = 1; i <= 50; ++i) {
