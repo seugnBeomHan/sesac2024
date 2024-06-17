@@ -18,6 +18,7 @@ const fibonacciLoop = n => {
     for (let i = 2; i < n; i += 1) {
         [prev, res] = [res, res + prev];
     }
+    
     return res;
 };
 
@@ -29,6 +30,7 @@ const fibonacciRecursive = n => {
         if (nRecur <= 2) {
             return 1;
         }
+
         return recursive(nRecur - 1) + recursive(nRecur - 2);
     })(n);
 };
@@ -40,14 +42,13 @@ const fibonacciMemoized = n => {
     const storage = {};
 
     return (function recursive(nRecur) {
+
         if (nRecur <= 2) {
             return storage[nRecur] = 1;
         }
-        const curFiboVal = storage[nRecur];
 
-        return curFiboVal === undefined ?
-            storage[nRecur] = recursive(nRecur - 1) + recursive(nRecur - 2) :
-            curFiboVal;
+        return storage[nRecur] ??
+            (storage[nRecur] = recursive(nRecur - 1) + recursive(nRecur - 2));
     })(n);
 };
 
@@ -59,7 +60,6 @@ const timeCheck = (n, ...fns) => {
         console.timeEnd(`${fn.name} time`);
     }
 }
-
 
 // test
 const resultPrint = (testFns, n) => {
