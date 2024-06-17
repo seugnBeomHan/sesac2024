@@ -1,8 +1,11 @@
+// input zero or less check
+const isZeroOrLess = input => {
+    return input <= 0;
+}
+
+// forward
 const makeArray = arrCount => {
-    if (arrCount <= 0) {
-        console.log(`input '${arrCount}' is an incorrect input.`);
-        return [];
-    }
+    if (isZeroOrLess(arrCount)) return [];
 
     const resArr = [];
 
@@ -17,10 +20,7 @@ const makeArray = arrCount => {
 
 // Reverse
 const makeReverseArray = arrCount => {
-    if (arrCount <= 0) {
-        console.log(`input '${arrCount}' is an incorrect input.`);
-        return [];
-    }
+    if (isZeroOrLess(arrCount)) return [];
 
     const resArr = [];
 
