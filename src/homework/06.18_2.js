@@ -13,7 +13,7 @@ const makeObjectFromArray = arr => {
 
 const makeArrayFromObject = obj => {
     const res = [];
-    for (let key in obj) {
+    for (let key of Object.keys(obj)) {
         res.push([key, ...obj[key]]);
     }
     return res;
