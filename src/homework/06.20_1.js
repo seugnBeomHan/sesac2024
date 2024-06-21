@@ -1,12 +1,24 @@
-const once = (fn, repeatSec = 1) => {
-    const INTERVAL_REPEAT_MS = 500; // Interval 기본 측정 주기
-    let excuteCount = 0; // 실행 카운트, 최초 1회 실행 위해
+const once = (fn) => {
+    let excuteCount = 0;
+
+    return (num1, num2) => {
+        if ((excuteCount += 1) === 1) {
+            return fn(num1, num2);
+        }
+        return '';
+    };
+}
+
+const onceRepeat = (fn, repeatSec = 1) => {
+    const DEFAULT_INTERVAL_REPEAT = 500; // Interval 간격(ms)
+    const finalIntervalCount = (repeatSec * 1000) / DEFAULT_INTERVAL_REPEAT; // 최종 반복 횟수
+    let curIntervalCount = 0; // 현재 Interval 횟수
     const excuteCache = []; // 1회 실행 후 추가 실행 되어야 할 때
-    const finalRepeatCycle = (repeatSec * 1000) / INTERVAL_REPEAT_MS; // 최종 반복 주기
-    let intervalCount = 0; // Interval 횟수 체크
+    let excuteCount = 0; // 실행 카운트, 최초 1회 실행 위해
 
     const cacheIsNotEmpty = () => excuteCache.length !== 0;
     const cacheIsEmpty = () => excuteCache.length === 0;
+    const intervalCountIsSame = () => curIntervalCount === finalIntervalCount;
 
     const timer = setInterval(() => {
         if (cacheIsEmpty()) {
@@ -15,19 +27,18 @@ const once = (fn, repeatSec = 1) => {
             return;
         }
 
-        if ((intervalCount += 1) > finalRepeatCycle) {
-            intervalCount = 0;
+        if ((curIntervalCount += 1) > finalIntervalCount) {
+            curIntervalCount = 0;
             return;
         }
 
-        if (cacheIsNotEmpty() && intervalCount === finalRepeatCycle) {
-            intervalCount = 0;
+        if (cacheIsNotEmpty() && intervalCountIsSame()) {
+            curIntervalCount = 0;
             console.log(fn(...excuteCache[0]));
             excuteCache.shift();
             return;
         }
-    }, INTERVAL_REPEAT_MS);
-
+    }, DEFAULT_INTERVAL_REPEAT);
     return (num1, num2) => {
         if ((excuteCount += 1) === 1) {
             return fn(num1, num2);
@@ -43,3 +54,10 @@ console.log(onceExcute(3, 4));
 console.log(onceExcute(5, 6));
 console.log(onceExcute(7, 8));
 console.log(onceExcute(9, 0));
+
+const onceExcutes = onceRepeat((x, y) => `금일 운행금지 차량은 끝번호 ${x}, ${y}입니다!`);
+console.log(onceExcutes(1, 2));
+console.log(onceExcutes(3, 4));
+console.log(onceExcutes(5, 6));
+console.log(onceExcutes(7, 8));
+console.log(onceExcutes(9, 0));

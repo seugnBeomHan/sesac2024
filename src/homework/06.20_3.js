@@ -11,7 +11,7 @@ const getNextDay = (() => {
     let cnt = 0;
     const timer = setInterval(() => {
         console.log('call', (cnt += 1), getNextDay());
-        if (cnt === 7) {
+        if (cnt === 7   ) {
             clearInterval(timer);
         }
     }, 500);
