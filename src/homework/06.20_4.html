@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과제 4</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: aquamarine;
+            border: none;
+            border-radius: 5px;
+            font-weight: bolder;
+            font-style: italic;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="kor">국어 수업 요일 선택 ></button>
+        <label id="lKor" for="kor">요일을 선택해주세요.</label>
+    </div>
+
+    <div>
+        <button id="math">수학 수업 요일 선택 ></button>
+        <label id="lMath" for="math">요일을 선택해주세요.</label>
+    </div>
+
+    <div>
+        <button id="eng">영어 수업 요일 선택 ></button>
+        <label id="lEng" for="eng">요일을 선택해주세요.</label>
+    </div>
+
+    <script>
+        const getNextDay = () => {
+            const weeks = ['일', '월', '화', '수', '목', '금', '토'];
+            let day = 0;
+            return () => {
+                if ((day += 1) === weeks.length) day = 0;
+                return `${weeks[day]}요일`;
+            };
+        };
+
+        (() => {
+            const subjectFunc = {
+                kor: getNextDay(),
+                math: getNextDay(),
+                eng: getNextDay()
+            };
+
+            document.getElementById('kor').addEventListener('click', function () {
+                document.getElementById('lKor').innerHTML = subjectFunc.kor();
+            });
+
+            document.getElementById('math').addEventListener('click', function () {
+                document.getElementById('lMath').innerHTML = subjectFunc.math();
+            });
+
+            document.getElementById('eng').addEventListener('click', function () {
+                document.getElementById('lEng').innerHTML = subjectFunc.eng();
+            });
+        })();
+    </script>
+</body>
+
+</html>
