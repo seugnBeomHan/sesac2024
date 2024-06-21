@@ -1,9 +1,9 @@
 const getNextDay = (() => {
-    const weeks = ['일', '월', '화', '수', '목', '금', '토'];
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
     let day = 0;
     return () => {
-        if ((day += 1) === weeks.length) day = 0;
-        return `${weeks[day]}요일`;
+        if ((day += 1) === days.length) day = 0;
+        return `${days[day]}요일`;
     };
 })();
 
@@ -11,8 +11,8 @@ const getNextDay = (() => {
     let cnt = 0;
     const timer = setInterval(() => {
         console.log('call', (cnt += 1), getNextDay());
-        if (cnt === 7   ) {
+        if (cnt === 14) {
             clearInterval(timer);
         }
-    }, 500);
+    }, 100);
 })();
