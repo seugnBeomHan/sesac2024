@@ -1,5 +1,5 @@
+const days = ['일', '월', '화', '수', '목', '금', '토'];
 const getNextDay = (() => {
-    const days = ['일', '월', '화', '수', '목', '금', '토'];
     let day = 0;
     return () => {
         if ((day += 1) === days.length) day = 0;

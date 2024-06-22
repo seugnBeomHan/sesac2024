@@ -26,48 +26,38 @@
 <body>
     <div>
         <button id="kor">국어 수업 요일 선택 ></button>
-        <label id="lKor" for="kor">요일을 선택해주세요.</label>
+        <label id="l_kor" for="kor">요일을 선택해주세요.</label>
     </div>
 
     <div>
         <button id="math">수학 수업 요일 선택 ></button>
-        <label id="lMath" for="math">요일을 선택해주세요.</label>
+        <label id="l_math" for="math">요일을 선택해주세요.</label>
     </div>
 
     <div>
         <button id="eng">영어 수업 요일 선택 ></button>
-        <label id="lEng" for="eng">요일을 선택해주세요.</label>
+        <label id="l_eng" for="eng">요일을 선택해주세요.</label>
     </div>
 
     <script>
+        const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+
         const getNextDay = () => {
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
             let day = 0;
             return () => {
-                if ((day += 1) === days.length) day = 0;
-                return `${days[day]}요일`;
+                if ((day += 1) === DAYS.length) day = 0;
+                return `${DAYS[day]}요일`;
             };
         };
 
-        (() => {
-            const dayInitFuncs = {
-                kor: getNextDay(),
-                math: getNextDay(),
-                eng: getNextDay()
-            };
+        const subjects =
+            [['kor', getNextDay()], ['math', getNextDay()], ['eng', getNextDay()]];
 
-            document.getElementById('kor').addEventListener('click', function () {
-                document.getElementById('lKor').innerHTML = dayInitFuncs.kor();
+        for (const [key, func] of subjects) {
+            document.getElementById(key).addEventListener('click', function () {
+                document.getElementById(`l_${key}`).innerHTML = func();
             });
-
-            document.getElementById('math').addEventListener('click', function () {
-                document.getElementById('lMath').innerHTML = dayInitFuncs.math();
-            });
-
-            document.getElementById('eng').addEventListener('click', function () {
-                document.getElementById('lEng').innerHTML = dayInitFuncs.eng();
-            });
-        })();
+        }
     </script>
 </body>
 

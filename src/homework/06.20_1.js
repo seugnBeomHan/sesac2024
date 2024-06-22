@@ -1,26 +1,31 @@
 // 한 번 실행
-const once = (fn) => {
-    let excuteCount = 0;
+const once = (fn, repeatSec = 1) => {
+    const DEFAULT_INTERVAL_REPEAT = 1000;
+    let isNotExcuted = true;
+
+    const timer = setInterval(() => {
+        isNotExcuted = true;
+    }, repeatSec * DEFAULT_INTERVAL_REPEAT);
 
     return (num1, num2) => {
-        if ((excuteCount += 1) === 1) {
+        if (isNotExcuted) {
+            isNotExcuted = false;
             return fn(num1, num2);
         }
-        return '';
     };
 }
 
 // 반복 실행
 const onceRepeat = (fn, repeatSec = 1) => {
-    const DEFAULT_INTERVAL_REPEAT = 1000;
-    const finalIntervalCount = (repeatSec * 1000) / DEFAULT_INTERVAL_REPEAT;
+    const DEFAULT_INTERVAL_REPEAT = 100;
+    const maxIntervalCount = (repeatSec * 1000) / DEFAULT_INTERVAL_REPEAT;
     let curIntervalCount = 0;
     const excuteQueue = [];
-    let excuteCount = 0;
+    let isNotExcuted = true;
 
     const cacheIsNotEmpty = () => excuteQueue.length !== 0;
     const cacheIsEmpty = () => excuteQueue.length === 0;
-    const intervalCountIsSame = () => curIntervalCount === finalIntervalCount;
+    const intervalCountIsSame = () => curIntervalCount === maxIntervalCount;
     const increaseIntervalCount = () => curIntervalCount += 1;
 
     const timer = setInterval(() => {
@@ -40,7 +45,8 @@ const onceRepeat = (fn, repeatSec = 1) => {
     }, DEFAULT_INTERVAL_REPEAT);
 
     return (num1, num2) => {
-        if ((excuteCount += 1) === 1) {
+        if (isNotExcuted) {
+            isNotExcuted = false;
             return fn(num1, num2);
         } else {
             return 'cache count: ' + excuteQueue.push([num1, num2]);

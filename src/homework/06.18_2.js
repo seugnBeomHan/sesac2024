@@ -4,17 +4,16 @@ const arr = [['A', 10, 20], ['B', 30, 40], ['C', 50, 60, 70]];
 const makeObjectFromArray = arr => {
     const res = {};
 
-    for (let val of arr) {
-        const [name, ...rest] = val;
-        res[name] = rest;
+    for (let [idx, ...obj] of arr) {
+        res[idx] = obj
     }
     return res;
 };
 
 const makeArrayFromObject = obj => {
     const res = [];
-    for (let key of Object.keys(obj)) {
-        res.push([key, ...obj[key]]);
+    for (let [key, rest] of Object.entries(obj)) {
+        res.push([key, ...rest]);
     }
     return res;
 };
