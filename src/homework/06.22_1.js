@@ -36,7 +36,7 @@ assert.deepStrictEqual(pop(arr, arr.length + 1), undefined); // wrong input
 assert.deepStrictEqual(arr, [1, 2, 3, 4]);
 assert.deepStrictEqual(unshift(arr, 0), [0, 1, 2, 3, 4]);
 assert.deepStrictEqual(unshift(arr, 7, 8), [7, 8, 1, 2, 3, 4]);
-assert.deepStrictEqual(unshift(arr), [1, 2, 3, 4]);
+assert.deepStrictEqual(unshift(arr), [1, 2, 3, 4]); // wrong input
 assert.deepStrictEqual(arr, [1, 2, 3, 4]);
 assert.deepStrictEqual(shift(arr), [2, 3, 4]);
 assert.deepStrictEqual(shift(arr, 2), [3, 4]);

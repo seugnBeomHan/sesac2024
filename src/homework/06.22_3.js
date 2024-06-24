@@ -24,16 +24,12 @@ Object.getPrototypeOf(users).removeUser = function (user) {
 Object.getPrototypeOf(users).changeUser = function (target, newUser) {
     if (inputCheck(target) || inputCheck(newUser)) return;
 
-    const ret = [];
-
-    for (const user of this) {
-        if (target.id === user.id && target.name === user.name) {
-            ret.push(newUser);
-            continue;
+    return this.map((e) => {
+        if (target.id === e.id && target.name === e.name) {
+            return newUser;
         }
-        ret.push(user);
-    }
-    return ret;
+        return e;
+    });
 };
 
 assert.deepStrictEqual(users.addUser(), undefined); // wrong input
