@@ -16,7 +16,7 @@ const classNames = (...args) => {
             return acc;
         }
 
-        if (i !== inputLen - 1) {
+        if (i !== (inputLen - 1)) {
             return acc += val + ' ';
         }
 

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-const reduce = (array, fn, start = 0, thisArg) => {
+export const reduce = (array, fn, start = 0, thisArg) => {
     for (let i = 0; i < array.length; i += 1) {
         start = + fn(start, array[i], thisArg);
     }
