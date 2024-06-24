@@ -2,34 +2,9 @@ import assert from 'node:assert/strict';
 
 const range = (start, end, interval) => {
     if (start === undefined) return;
-    if (start === end) return [start];
-    if (interval === 0) return [start];
+    if (start === end || interval === 0) return [start];
 
     const ret = [];
-
-    // up
-    if (start < end) {
-        interval = interval || 1;
-        if (interval < 0) return [];
-
-        for (let i = start; i <= end; i += interval) {
-            ret.push(i);
-        }
-
-        return ret;
-    }
-
-    // down
-    if (start > end) {
-        interval = interval || -1;
-        if (interval > 0) return [];
-
-        for (let i = start; i >= end; i += interval) {
-            ret.push(i);
-        }
-
-        return ret;
-    }
 
     // up & down
     if (end === undefined) {
@@ -39,17 +14,36 @@ const range = (start, end, interval) => {
             if (start === 0) return 0;
         });
     }
+
+    // up
+    if (start < end) {
+        if ((interval = interval || 1) < 0) return [];
+        for (let i = start; i <= end; i += interval) {
+            ret.push(i);
+        }
+        return ret;
+    }
+
+    // down
+    if (start > end) {
+        if ((interval = interval || -1) > 0) return [];
+        for (let i = start; i >= end; i += interval) {
+            ret.push(i);
+        }
+        return ret;
+    }
 };
 
 // wrong input
 assert.deepStrictEqual(range(), undefined);
+assert.deepStrictEqual(range(5, 5, 0), [5]);
+assert.deepStrictEqual(range(1, 5, 0), [1]);
 assert.deepStrictEqual(range(0, 0), [0]);
 assert.deepStrictEqual(range(5, 5, -1), [5]);
 assert.deepStrictEqual(range(5, 5), [5]);
 assert.deepStrictEqual(range(0, 0, 5), [0]);
-assert.deepStrictEqual(range(5, 5, 0), [5]);
-assert.deepStrictEqual(range(1, 5, 0), [1]);
 
+// up
 assert.deepStrictEqual(range(1, 5, -1), []);
 assert.deepStrictEqual(range(1, 10), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 assert.deepStrictEqual(range(1, 10, 1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -58,6 +52,7 @@ assert.deepStrictEqual(range(1, 5, 6), [1]);
 assert.deepStrictEqual(range(0, 5), [0, 1, 2, 3, 4, 5]);
 assert.deepStrictEqual(range(-3, 0), [-3, -2, -1, 0]);
 
+// down
 assert.deepStrictEqual(range(5, 1, 1), []);
 assert.deepStrictEqual(range(0, -1, -5), [0]);
 assert.deepStrictEqual(range(2, 1, -5), [2]);
@@ -67,6 +62,7 @@ assert.deepStrictEqual(range(5, 1), [5, 4, 3, 2, 1]);
 assert.deepStrictEqual(range(10, 1), [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
 assert.deepStrictEqual(range(10, 1, -2), [10, 8, 6, 4, 2]);
 
+// up & down
 assert.deepStrictEqual(range(0), [0]);
 assert.deepStrictEqual(range(5), [1, 2, 3, 4, 5]);
 assert.deepStrictEqual(range(100), [...new Array(100)].map((_, i) => i + 1));
