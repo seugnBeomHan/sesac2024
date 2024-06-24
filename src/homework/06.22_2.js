@@ -8,7 +8,7 @@ const deleteArray = (array, startOrKey, endOrValue) => {
 
     if (startOrKeyType === 'number') {
         endOrValue = endOrValue || array.length;
-        return array.filter((e, i) => i < startOrKey || i > endOrValue - 1);
+        return array.filter((_, i) => i < startOrKey || i > endOrValue - 1);
     }
 
     if (startOrKeyType === 'string') {
