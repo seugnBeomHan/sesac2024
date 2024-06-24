@@ -23,10 +23,10 @@ const arr = [1, 2, 3, 4];
 assert.deepStrictEqual(deleteArray(arr, 2), [1, 2]);
 assert.deepStrictEqual(deleteArray(arr, 1, 3), [1, 4]);
 assert.deepStrictEqual(deleteArray(arr, 1, arr.length), [1]);
-assert.deepStrictEqual(deleteArray(arr), [1, 2, 3, 4]); // 잘못 된 인풋
-assert.deepStrictEqual(deleteArray(10, 10, 10), undefined); // 잘못 된 인풋
-assert.deepStrictEqual(deleteArray(arr, arr.length, 1), [1, 2, 3, 4]); // 잘못 된 인풋
-assert.deepStrictEqual(deleteArray(arr, 2, arr.length + 1), [1, 2]); // 잘못 된 인풋
+assert.deepStrictEqual(deleteArray(arr), [1, 2, 3, 4]); // wrong input
+assert.deepStrictEqual(deleteArray(10, 10, 10), undefined); // wrong input
+assert.deepStrictEqual(deleteArray(arr, arr.length, 1), [1, 2, 3, 4]); // wrong input
+assert.deepStrictEqual(deleteArray(arr, 2, arr.length + 1), [1, 2]); // wrong input
 assert.deepStrictEqual(arr, [1, 2, 3, 4]);
 
 const Hong = { id: 1, name: 'Hong' };
@@ -38,7 +38,7 @@ assert.deepStrictEqual(deleteArray(users, 2), [Hong, Kim]);
 assert.deepStrictEqual(deleteArray(users, 1, 2), [Hong, Lee]);
 assert.deepStrictEqual(deleteArray(users, 'id', 2), [Hong, Lee]);
 assert.deepStrictEqual(deleteArray(users, 'name', 'Lee'), [Hong, Kim]);
-assert.deepStrictEqual(deleteArray(users, 'id'), [Hong, Kim, Lee]); // 잘못 된 인풋
-assert.deepStrictEqual(deleteArray(users, 'id', 10), [Hong, Kim, Lee]); // 잘못 된 인풋
-assert.deepStrictEqual(deleteArray(users, 'name', 'Han'), [Hong, Kim, Lee]); // 잘못 된 인풋
+assert.deepStrictEqual(deleteArray(users, 'id'), [Hong, Kim, Lee]); // wrong input
+assert.deepStrictEqual(deleteArray(users, 'id', 10), [Hong, Kim, Lee]); // wrong input
+assert.deepStrictEqual(deleteArray(users, 'name', 'Han'), [Hong, Kim, Lee]); // wrong input
 assert.deepStrictEqual(deleteArray(users), [Hong, Kim, Lee]);

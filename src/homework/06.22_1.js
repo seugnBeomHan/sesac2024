@@ -48,16 +48,16 @@ assert.deepStrictEqual(push(arr, 5), [1, 2, 3, 4, 5]);
 assert.deepStrictEqual(pop(arr), 4);
 assert.deepStrictEqual(pop(arr, 2), [3, 4]);
 assert.deepStrictEqual(pop(arr, arr.length), [1, 2, 3, 4]);
-assert.deepStrictEqual(pop(arr, 0), 4); // 잘못된 인풋
-assert.deepStrictEqual(pop(arr, -1), 4); // 잘못된 인풋
-assert.deepStrictEqual(pop(arr, arr.length + 1), 4); // 잘못된 인풋
+assert.deepStrictEqual(pop(arr, 0), 4); // wrong input
+assert.deepStrictEqual(pop(arr, -1), 4); // wrong input
+assert.deepStrictEqual(pop(arr, arr.length + 1), 4); // wrong input
 assert.deepStrictEqual(unshift(arr, 0), [0, 1, 2, 3, 4]);
 assert.deepStrictEqual(unshift(arr, 7, 8), [7, 8, 1, 2, 3, 4]);
 assert.deepStrictEqual(unshift(arr), [1, 2, 3, 4]);
 assert.deepStrictEqual(shift(arr), [2, 3, 4]);
 assert.deepStrictEqual(shift(arr, 2), [3, 4]);
 assert.deepStrictEqual(shift(arr, arr.length), []);
-assert.deepStrictEqual(shift(arr, 0), [2, 3, 4]); // 잘못된 인풋
-assert.deepStrictEqual(shift(arr, -1), [2, 3, 4]); // 잘못된 인풋
-assert.deepStrictEqual(shift(arr, arr.length + 1), [2, 3, 4]); // 잘못된 인풋
+assert.deepStrictEqual(shift(arr, 0), [2, 3, 4]); // wrong input
+assert.deepStrictEqual(shift(arr, -1), [2, 3, 4]); // wrong input
+assert.deepStrictEqual(shift(arr, arr.length + 1), [2, 3, 4]); // wrong input
 assert.deepStrictEqual((arr), [1, 2, 3, 4]);
