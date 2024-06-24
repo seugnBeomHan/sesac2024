@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 
-export const reduce = (array, fn, start = 0, thisArg) => {
+const reduce = (array, fn, start = 0, thisArg) => {
     for (let i = 0; i < array.length; i += 1) {
-        start = + fn(start, array[i], thisArg);
+        start = fn(start, array[i], thisArg);
     }
     return start;
 }
