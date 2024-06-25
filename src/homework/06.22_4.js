@@ -1,3 +1,5 @@
+// 짧게 줄여보는 것도 좋다. 어떤 코드가 좋을지에 대한 고민
+
 import assert from 'node:assert/strict';
 
 // 배열의 각 원소를 String으로 변환하시오.

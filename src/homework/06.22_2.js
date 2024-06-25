@@ -1,3 +1,5 @@
+// 예외 처리 고민해 볼 것, key에 들어올 수 있는 값을 고민할 것
+
 import assert from 'node:assert/strict';
 
 const deleteArray = (array, startOrKey, endOrValue) => {

@@ -1,3 +1,7 @@
+// 순수함수는 loop를 돌지 않는다?!
+// filter는 loop다, slice를 쓴다. loop은 돌지 않는다.
+// slice는 내부에서 어떻게 돌까?
+
 import assert from 'node:assert/strict';
 
 const push = (array, ...values) => {

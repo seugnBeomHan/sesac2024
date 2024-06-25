@@ -1,3 +1,5 @@
+// 이중 for문(n^2) => 메모이제이션(n or logN)
+
 import assert from 'node:assert/strict';
 
 const keyPairMap = (array, pair) => {

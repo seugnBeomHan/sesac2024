@@ -1,3 +1,7 @@
+// 항상 조건을 먼저 생각할 것
+// 요구사항 및 예외 상황, 규칙을 말로 쓰고, 코딩할 것 
+// 루프는 한 번만, 어떻게 얼마나 돌아야 할 지 미리 정해볼 것
+
 import assert from 'node:assert/strict';
 
 const range = (start, end, interval) => {
@@ -15,21 +19,19 @@ const range = (start, end, interval) => {
 
     // up
     if (start < end) {
-        if ((interval = interval || 1) < 0) return [];
-        for (let i = start; i <= end; i += interval) {
-            ret.push(i);
-        }
-        return ret;
+        if ((interval = interval || 1) < 0) return [];   
     }
 
     // down
     if (start > end) {
         if ((interval = interval || -1) > 0) return [];
-        for (let i = start; i >= end; i += interval) {
-            ret.push(i);
-        }
-        return ret;
     }
+
+    for (let i = start; start < end ? i <= end : i >= end; i += interval) {
+        ret.push(i);
+    }
+    
+    return ret;
 };
 
 // wrong input

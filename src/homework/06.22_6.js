@@ -1,3 +1,5 @@
+// 짧게 줄여볼 것
+
 import assert from 'node:assert/strict';
 
 const square = (n) => n ** 2;

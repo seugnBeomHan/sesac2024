@@ -1,3 +1,7 @@
+// Object.getPrototypeOf(users)의 경우 Array의 Prototype을 변경한다.
+// Prototype은 하나이다. 해서 동일한 타입이 모두 공유하게 된다.
+// 이 부분 수정해 볼 것, Prototype을 건들지 않고 깔끔하게 넣을 수 있도록 
+
 import assert from 'node:assert/strict';
 
 const hong = { id: 1, name: 'Hong' };
@@ -23,7 +27,7 @@ Object.getPrototypeOf(users).removeUser = function (user) {
 
 Object.getPrototypeOf(users).changeUser = function (target, newUser) {
     if (inputCheck(target) || inputCheck(newUser)) return;
-
+    
     return this.map((e) => {
         if (target.id === e.id && target.name === e.name) {
             return newUser;
