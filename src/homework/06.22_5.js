@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 
-const reduce = (array, fn, start = 0, thisArg) => {
+const reduce = (array, fn, acc = 0, thisArg) => {
     array.forEach((e) => {
-        start = fn(start, e, thisArg);
+        acc = fn(acc, e, thisArg);
     });
-    return start;
+    return acc;
 }
 
 assert.deepStrictEqual(reduce([1, 2, 3], (acc, cur) => acc + cur, 0), 6);
