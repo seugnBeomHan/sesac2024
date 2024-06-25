@@ -4,28 +4,29 @@ const keyPairMap = (array, pair) => {
     const valueMap = new Map();
 
     for (let i = 0; i < array.length; i += 1) {
-        const cur = array[i];
-        const matchIdx = valueMap.get(pair - cur);
+        const curVal = array[i];
+        if (curVal >= pair) continue;
+
+        const matchIdx = valueMap.get(pair - curVal);
 
         if (matchIdx !== undefined) return [matchIdx, i];
-        if (!(valueMap.has(cur))) valueMap.set(cur, i);
+        if (!(valueMap.has(curVal))) valueMap.set(curVal, i);
     }
     return;
 };
 
-// n^2
-// const keyPair = (array, pair) => {
-//     const len = array.length;
-//     const isPair = (target, num) => target + num === pair;
+const keyPair = (array, pair) => {
+    const len = array.length;
+    const isPair = (target, num) => target + num === pair;
 
-//     for (let i = 0; i < len; i += 1) {
-//         const target = array[i];
-//         for (let j = i + 1; j < len; j += 1) {
-//             if (isPair(target, array[j])) return [i, j];
-//         }
-//     }
-//     return;
-// };
+    for (let i = 0; i < len; i += 1) {
+        const target = array[i];
+        for (let j = i + 1; j < len; j += 1) {
+            if (isPair(target, array[j])) return [i, j];
+        }
+    }
+    return;
+};
 
 assert.deepStrictEqual(keyPair([1, 3, 4, 5], 7), [1, 2]);
 assert.deepStrictEqual(keyPair([1, 4, 45, 6, 10, 8], 16), [3, 4]);
