@@ -8,7 +8,7 @@ const park = { id: 4, name: 'Park' };
 const users = [kim, lee, park]; // 오염되면 안됨!!
 
 const inputCheck = (user) => {
-    return user === undefined || typeof (user) !== 'object';
+    return user === undefined || user === null || typeof (user) !== 'object';
 };
 
 Object.getPrototypeOf(users).addUser = function (user) {
