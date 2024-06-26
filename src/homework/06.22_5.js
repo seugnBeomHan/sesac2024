@@ -4,7 +4,6 @@
 import assert from 'node:assert/strict';
 
 const reduce = (array, fn, acc, thisArg) => {
-
     let i = 0;
     acc = acc ?? array[i++];
 
