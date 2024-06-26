@@ -8,9 +8,6 @@ const square = (n) => n ** 2;
 const sqrt = (n) => Math.sqrt(n);
 const cube = (n) => n ** 3;
 
-const res = arr.reduce((acc, cur) => [...acc, (cube(sqrt(square(cur))))], []);
-assert.deepStrictEqual(res, [1, 8, 27, 64, 125]);
-
 // 원래 과제
 const res = arr.reduce((acc, cur) => [...acc, cube(sqrt(square(cur)))], []);
 assert.deepStrictEqual(res, arr.map(a => a ** 2).map(a => a ** 3).map(a => Math.sqrt(a)));

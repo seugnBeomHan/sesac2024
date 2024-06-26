@@ -4,33 +4,29 @@
 
 import assert from 'node:assert/strict';
 
-const range = (start, end, interval) => {
+const range = (start, end, interval = start < end ? 1 : -1) => {
     if (start === end || interval === 0) return [start];
+    if (start < end && interval < 0) return [];
+    if (start > end && interval > 0) return [];
 
     // up & down
     if (end === undefined) {
-        return [...new Array(start === 0 ? 1 : Math.abs(start))].map((_, i) => {
-            if (start <= 0) return i + start;
-            if (start > 0) return i + 1;
-        });
+        const size = start === 0 ? 1 : Math.abs(start);
+        start = start > 0 ? 1 : start;
+
+        return Array.from(
+            { length: size },
+            (_, i) => {
+                return i + start;
+            });
     }
 
     const ret = [];
 
-    // up
-    if (start < end) {
-        if ((interval = interval || 1) < 0) return [];   
-    }
-
-    // down
-    if (start > end) {
-        if ((interval = interval || -1) > 0) return [];
-    }
-
     for (let i = start; start < end ? i <= end : i >= end; i += interval) {
         ret.push(i);
     }
-    
+
     return ret;
 };
 
