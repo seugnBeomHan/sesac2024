@@ -12,16 +12,16 @@ const classNames = (...args) => {
 
     if (inputLen === 0) return;
 
-    return args.reduce((acc, val, i) => {
-        if (val === '') {
+    return args.reduce((acc, cur, i) => {
+        if (cur === '') {
             return acc;
         }
 
         if (i !== (inputLen - 1)) {
-            return acc += val + ' ';
+            return acc += cur + ' ';
         }
 
-        return acc += val;
+        return acc += cur;
     }, '');
 };
 
