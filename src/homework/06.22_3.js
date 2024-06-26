@@ -15,19 +15,19 @@ const inputCheck = (user) => {
     return user === undefined || user === null || typeof (user) !== 'object';
 };
 
-Object.getPrototypeOf(users).addUser = function (user) {
+users.addUser = function (user) {
     if (inputCheck(user)) return;
     return [...this, user];
 };
 
-Object.getPrototypeOf(users).removeUser = function (user) {
+users.removeUser = function (user) {
     if (inputCheck(user)) return;
     return this.filter((e) => e.id !== user.id && e.name !== user.name);
 };
 
-Object.getPrototypeOf(users).changeUser = function (target, newUser) {
+users.changeUser = function (target, newUser) {
     if (inputCheck(target) || inputCheck(newUser)) return;
-    
+
     return this.map((e) => {
         if (target.id === e.id && target.name === e.name) {
             return newUser;
@@ -35,6 +35,25 @@ Object.getPrototypeOf(users).changeUser = function (target, newUser) {
         return e;
     });
 };
+
+Object.defineProperties(users,
+    {
+        'addUser': {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+        },
+        'removeUser': {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+        },
+        'changeUser': {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+        }
+    });
 
 assert.deepStrictEqual(users.addUser(), undefined); // wrong input
 assert.deepStrictEqual(users.addUser(10), undefined); // wrong input
