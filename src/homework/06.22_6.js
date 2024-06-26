@@ -2,15 +2,18 @@
 
 import assert from 'node:assert/strict';
 
+const arr = [1, 2, 3, 4, 5];
+
 const square = (n) => n ** 2;
 const sqrt = (n) => Math.sqrt(n);
 const cube = (n) => n ** 3;
 
-const arr = [1, 2, 3, 4, 5];
+const res = arr.reduce((acc, cur) => [...acc, (cube(sqrt(square(cur))))], []);
+assert.deepStrictEqual(res, [1, 8, 27, 64, 125]);
 
 const go = (array, funcs) => {
     return array.reduce((acc, n) => {
-        funcs.forEach(func => {
+        funcs.map(func => {
             n = func(n);
         });
         return [...acc, n];
