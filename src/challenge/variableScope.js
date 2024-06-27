@@ -1,7 +1,7 @@
 // 0, 1, 2, 3, 4
-for (let i = 0; i < 5; i += 1) {
-    setTimeout(() => { console.log(i); });
-}
+// for (let i = 0; i < 5; i += 1) {
+//     setTimeout(() => { console.log(i); });
+// }
 
 /**
  * let i;
@@ -13,10 +13,10 @@ for (let i = 0; i < 5; i += 1) {
  * 위 둘은 동일한 결과다. 결국 선언 위치에 따라 스코프가 결정된다.
  * 5, 5, 5, 5, 5 
 */
-let i;
-for (i = 0; i < 5; i += 1) {
-    setTimeout(() => { console.log(i); });
-} 
+// let i;
+// for (i = 0; i < 5; i += 1) {
+//     setTimeout(() => { console.log(i); });
+// }
 
 // var 일 때, let 일때, 변수 선언 시점에 따라 스코프 확인 및 결과 확인
 
@@ -42,3 +42,51 @@ for (i = 0; i < 5; i += 1) {
  * 
  * 그렇기 때문에 블럭은 각각 생성된다. 
  */
+
+/**
+ * for (let i = 0; i < 5; i += 1) {
+    setTimeout(() => { console.log(i); });
+}
+ */
+{
+    let i = 0;
+    {
+        if (i < 5) {
+            setTimeout(() => { console.log(i); });
+            let i = i;
+            i += 1;
+        }
+    }
+
+    {
+        if (i < 5) {
+            setTimeout(() => { console.log(i); });
+            let i = i;
+            i += 1;
+        }
+    }
+
+    {
+        if (i < 5) {
+            setTimeout(() => { console.log(i); });
+            let i = i;
+            i += 1;
+        }
+    }
+
+    {
+        if (i < 5) {
+            setTimeout(() => { console.log(i); });
+            let i = i;
+            i += 1;
+        }
+    }
+
+    {
+        if (i < 5) {
+            setTimeout(() => { console.log(i); });
+            let i = i;
+            i += 1;
+        }
+    }
+}
