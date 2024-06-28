@@ -16,7 +16,7 @@ class Stack {
     }
 
     push(...values) {
-        if (values.length === 0) return this.#length;
+        if (values.length === 0) return;
         return (this.#length = this.#stack.push(...values));
     }
 
