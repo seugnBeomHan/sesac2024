@@ -5,6 +5,12 @@ class Queue {
     #length;
     #front;
 
+    /**
+     * reset 진행 기준 되는 버려진 공간 개수 설정
+     * 전체 Queue 인스턴스에 공통적으로 사용
+     */
+    static #ABANDONED_SPACE_COUNT = 4;
+
     constructor(...args) {
         this.#queue = [];
         this.#length = 0;
@@ -68,8 +74,7 @@ class Queue {
     }
 
     #isReset() {
-        const ABANDONED_COUNT = 4; // 테스트 용도로 4개
-        return this.#front === ABANDONED_COUNT;
+        return this.#front === Queue.#ABANDONED_SPACE_COUNT;
     }
 
     // 현재 유효한 범위의 array 반환
