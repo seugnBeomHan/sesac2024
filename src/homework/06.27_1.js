@@ -5,27 +5,33 @@ class Emp {
     lastName;
 }
 
-const hong = new Proxy(new Emp(), {
-    get(target, key, receiver) {
-        if (key === 'fullName') return `${target.firstName} ${target.lastName}`;
-        return Reflect.get(target, key, receiver);
-    },
+const createProxy = (obj) => {
+    const changeUpperCase = (str) => str.toUpperCase();
 
-    set(target, key, val, receiver) {
-        if (typeof val !== 'string') return false;
+    return new Proxy(obj, {
+        get(target, key, receiver) {
+            if (key === 'fullName') return `${target.firstName} ${target.lastName}`;
+            return Reflect.get(target, key, receiver);
+        },
 
-        if (key === 'fullName') {
-            const [first, last] = val.split(' ');
+        set(target, key, val, receiver) {
+            if (typeof val !== 'string') return false;
 
-            last === undefined ?
-                target.lastName = first.toUpperCase() :
-                (target.firstName = first, target.lastName = last.toUpperCase());
+            if (key === 'fullName') {
+                const [first, last] = val.split(' ');
 
-            return true;
+                last === undefined ?
+                    target.lastName = changeUpperCase(first) :
+                    (target.firstName = first, target.lastName = changeUpperCase(last));
+
+                return true;
+            }
+            return Reflect.set(target, key, val, receiver);
         }
-        return Reflect.set(target, key, val, receiver);
-    }
-});
+    });
+};
+
+const hong = createProxy(new Emp());
 
 hong.fullName = 'Kildong Hong';
 assert.deepStrictEqual(hong.fullName, 'Kildong HONG');
