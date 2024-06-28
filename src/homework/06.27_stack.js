@@ -31,15 +31,29 @@ class Stack {
         return this.#stack[this.#length - 1];
     }
 
-    isEmpty() { return this.#length === 0; }
-    poll() { return this.pop(); }
-    remove() { return this.pop(); }
-    toArray() { return [...this.#stack]; }
-    print() { console.log(...this.#stack); }
+    isEmpty() {
+        return this.#length === 0;
+    }
+
+    poll() {
+        return this.pop();
+    }
+
+    remove() {
+        return this.pop();
+    }
+
+    toArray() {
+        return [...this.#stack];
+    }
+
+    print() {
+        console.log(...this.#stack);
+    }
+
     clear() {
         this.#stack = [];
         this.#length = 0;
-        return true;
     }
 }
 
