@@ -11,10 +11,6 @@ class Stack {
         if (args.length !== 0) this.push(...args);
     }
 
-    get length() {
-        return this.#length;
-    }
-
     push(...values) {
         if (values.length === 0) return;
         return (this.#length = this.#stack.push(...values));
@@ -26,13 +22,17 @@ class Stack {
         return this.#stack.pop();
     }
 
-    peek() {
-        if (this.isEmpty()) return;
-        return this.#stack[this.#length - 1];
+    getLength() {
+        return this.#length;
     }
 
     isEmpty() {
         return this.#length === 0;
+    }
+
+    peek() {
+        if (this.isEmpty()) return;
+        return this.#stack[this.#length - 1];
     }
 
     poll() {
@@ -74,11 +74,11 @@ stack2.print();
 stack2.push();
 stack2.push(3);
 
-assert.deepStrictEqual(stack.length, 1);
+assert.deepStrictEqual(stack.getLength(), 1);
 assert.deepStrictEqual(stack.isEmpty(), false);
-assert.deepStrictEqual(stack1.length, 6);
+assert.deepStrictEqual(stack1.getLength(), 6);
 assert.deepStrictEqual(stack1.isEmpty(), false);
-assert.deepStrictEqual(stack2.length, 3);
+assert.deepStrictEqual(stack2.getLength(), 3);
 assert.deepStrictEqual(stack2.isEmpty(), false);
 
 stack.print();
@@ -86,13 +86,13 @@ stack1.print();
 stack2.print();
 
 assert.deepStrictEqual(stack.push(1, 2, 5, 6, 7), 6);
-assert.deepStrictEqual(stack.length, 6);
+assert.deepStrictEqual(stack.getLength(), 6);
 assert.deepStrictEqual(stack.isEmpty(), false);
 assert.deepStrictEqual(stack1.push(10, 20), 8);
-assert.deepStrictEqual(stack1.length, 8);
+assert.deepStrictEqual(stack1.getLength(), 8);
 assert.deepStrictEqual(stack1.isEmpty(), false);
 assert.deepStrictEqual(stack2.push([10, 20]), 4);
-assert.deepStrictEqual(stack2.length, 4);
+assert.deepStrictEqual(stack2.getLength(), 4);
 assert.deepStrictEqual(stack2.isEmpty(), false);
 
 stack.print();
@@ -100,11 +100,11 @@ stack1.print();
 stack2.print();
 
 assert.deepStrictEqual(stack.pop(), 7);
-assert.deepStrictEqual(stack.length, 5);
+assert.deepStrictEqual(stack.getLength(), 5);
 assert.deepStrictEqual(stack1.pop(), 20);
-assert.deepStrictEqual(stack1.length, 7);
+assert.deepStrictEqual(stack1.getLength(), 7);
 assert.deepStrictEqual(stack2.pop(), [10, 20]);
-assert.deepStrictEqual(stack2.length, 3);
+assert.deepStrictEqual(stack2.getLength(), 3);
 
 stack.print();
 stack1.print();
@@ -126,3 +126,24 @@ assert.deepStrictEqual(stack1.isEmpty(), true);
 assert.deepStrictEqual(stack1.poll(), undefined);
 assert.deepStrictEqual(stack2.isEmpty(), true);
 assert.deepStrictEqual(stack2.poll(), undefined);
+
+assert.deepStrictEqual(stack.isEmpty(), true);
+assert.deepStrictEqual(stack.pop(), undefined);
+assert.deepStrictEqual(stack1.isEmpty(), true);
+assert.deepStrictEqual(stack1.pop(), undefined);
+assert.deepStrictEqual(stack2.isEmpty(), true);
+assert.deepStrictEqual(stack2.pop(), undefined);
+
+assert.deepStrictEqual(stack.isEmpty(), true);
+assert.deepStrictEqual(stack.remove(), undefined);
+assert.deepStrictEqual(stack1.isEmpty(), true);
+assert.deepStrictEqual(stack1.remove(), undefined);
+assert.deepStrictEqual(stack2.isEmpty(), true);
+assert.deepStrictEqual(stack2.remove(), undefined);
+
+assert.deepStrictEqual(stack.isEmpty(), true);
+assert.deepStrictEqual(stack.peek(), undefined);
+assert.deepStrictEqual(stack1.isEmpty(), true);
+assert.deepStrictEqual(stack1.peek(), undefined);
+assert.deepStrictEqual(stack2.isEmpty(), true);
+assert.deepStrictEqual(stack2.peek(), undefined);

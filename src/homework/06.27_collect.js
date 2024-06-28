@@ -163,6 +163,27 @@ assert.deepStrictEqual(stack1.poll, undefined);
 assert.deepStrictEqual(stack2.isEmpty, true);
 assert.deepStrictEqual(stack2.poll, undefined);
 
+assert.deepStrictEqual(stack.isEmpty, true);
+assert.deepStrictEqual(stack.pop(), undefined);
+assert.deepStrictEqual(stack1.isEmpty, true);
+assert.deepStrictEqual(stack1.pop(), undefined);
+assert.deepStrictEqual(stack2.isEmpty, true);
+assert.deepStrictEqual(stack2.pop(), undefined);
+
+assert.deepStrictEqual(stack.isEmpty, true);
+assert.deepStrictEqual(stack.remove(), undefined);
+assert.deepStrictEqual(stack1.isEmpty, true);
+assert.deepStrictEqual(stack1.remove(), undefined);
+assert.deepStrictEqual(stack2.isEmpty, true);
+assert.deepStrictEqual(stack2.remove(), undefined);
+
+assert.deepStrictEqual(stack.isEmpty, true);
+assert.deepStrictEqual(stack.peek, undefined);
+assert.deepStrictEqual(stack1.isEmpty, true);
+assert.deepStrictEqual(stack1.peek, undefined);
+assert.deepStrictEqual(stack2.isEmpty, true);
+assert.deepStrictEqual(stack2.peek, undefined);
+
 const queue = new Queue();
 assert.deepStrictEqual(queue.isEmpty, true);
 
@@ -184,19 +205,25 @@ assert.deepStrictEqual(queue.enqueue(10, 20, 30, 40, 50), 5);
 assert.deepStrictEqual(queue.isEmpty, false);
 assert.deepStrictEqual(queue.dequeue(), 10);
 assert.deepStrictEqual(queue.length, 4);
-assert.deepStrictEqual(queue.peek, 20);
 
 queue.print();
 
-assert.deepStrictEqual(queue.toArray().reduce((acc, cur) => acc += cur), 140);
+assert.deepStrictEqual(queue.peek, 20);
 assert.deepStrictEqual(queue.poll, 20);
 assert.deepStrictEqual(queue.remove(), 30);
+assert.deepStrictEqual(queue.remove(), 40);
+
+queue.enqueue(60, 70, 80, 90, 100);
+queue.print();
+
+assert.deepStrictEqual(queue.toArray(), [50, 60, 70, 80, 90, 100]);
+assert.deepStrictEqual(queue.toArray().reduce((acc, cur) => acc += cur), 450);
 
 queue.clear();
 
-assert.deepStrictEqual(queue.isEmpty, true);
+assert.deepStrictEqual(queue.peek, undefined);
 assert.deepStrictEqual(queue.poll, undefined);
-assert.deepStrictEqual(queue.remove(), undefined);
+assert.deepStrictEqual(queue.dequeue(), undefined);
 
 const queueReset = new Queue(1, 2, 3, 4, 5, 6, 7);
 assert.deepStrictEqual(queueReset.isEmpty, false);
