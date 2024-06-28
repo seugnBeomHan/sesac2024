@@ -63,7 +63,7 @@ class Queue {
     // 버려진 공간 정리
     #reset() {
         this.#queue = this.#queue.slice(this.#front, this.#length);
-        this.#length = this.length;
+        this.#length = this.getLength();
         this.#front = 0;
     }
 
@@ -99,6 +99,25 @@ assert.deepStrictEqual(queue.enqueue(10, 20, 30, 40, 50), 5);
 assert.deepStrictEqual(queue.isEmpty(), false);
 assert.deepStrictEqual(queue.dequeue(), 10);
 assert.deepStrictEqual(queue.getLength(), 4);
+
+queue.print();
+
+assert.deepStrictEqual(queue.peek(), 20);
+assert.deepStrictEqual(queue.poll(), 20);
+assert.deepStrictEqual(queue.remove(), 30);
+assert.deepStrictEqual(queue.remove(), 40);
+
+queue.enqueue(60, 70, 80, 90, 100);
+queue.print();
+
+assert.deepStrictEqual(queue.toArray(), [50, 60, 70, 80, 90, 100]);
+assert.deepStrictEqual(queue.toArray().reduce((acc, cur) => acc += cur), 450);
+
+queue.clear();
+
+assert.deepStrictEqual(queue.peek(), undefined);
+assert.deepStrictEqual(queue.poll(), undefined);
+assert.deepStrictEqual(queue.dequeue(), undefined);
 
 const queueReset = new Queue(1, 2, 3, 4, 5, 6, 7);
 assert.deepStrictEqual(queueReset.isEmpty(), false);
