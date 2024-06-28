@@ -64,13 +64,10 @@ assert.deepStrictEqual(stack.toArray(), []);
 assert.deepStrictEqual(stack1.toArray(), [1, 2, 3, 4, 5]);
 assert.deepStrictEqual(stack2.toArray(), [[1, 2,], [3, 4, 5]]);
 
-stack.print();
 stack.push();
 stack.push(3);
-stack1.print();
 stack1.push();
 stack1.push(3);
-stack2.print();
 stack2.push();
 stack2.push(3);
 
@@ -80,11 +77,6 @@ assert.deepStrictEqual(stack1.getLength(), 6);
 assert.deepStrictEqual(stack1.isEmpty(), false);
 assert.deepStrictEqual(stack2.getLength(), 3);
 assert.deepStrictEqual(stack2.isEmpty(), false);
-
-stack.print();
-stack1.print();
-stack2.print();
-
 assert.deepStrictEqual(stack.push(1, 2, 5, 6, 7), 6);
 assert.deepStrictEqual(stack.getLength(), 6);
 assert.deepStrictEqual(stack.isEmpty(), false);
@@ -94,22 +86,12 @@ assert.deepStrictEqual(stack1.isEmpty(), false);
 assert.deepStrictEqual(stack2.push([10, 20]), 4);
 assert.deepStrictEqual(stack2.getLength(), 4);
 assert.deepStrictEqual(stack2.isEmpty(), false);
-
-stack.print();
-stack1.print();
-stack2.print();
-
 assert.deepStrictEqual(stack.pop(), 7);
 assert.deepStrictEqual(stack.getLength(), 5);
 assert.deepStrictEqual(stack1.pop(), 20);
 assert.deepStrictEqual(stack1.getLength(), 7);
 assert.deepStrictEqual(stack2.pop(), [10, 20]);
 assert.deepStrictEqual(stack2.getLength(), 3);
-
-stack.print();
-stack1.print();
-stack2.print();
-
 assert.deepStrictEqual(stack.toArray().reduce((acc, cur) => acc += cur), 17);
 assert.deepStrictEqual(stack.peek(), 6);
 assert.deepStrictEqual(stack1.toArray().reduce((acc, cur) => acc += cur), 28);
