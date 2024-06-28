@@ -7,17 +7,18 @@ class Emp {
 
 const createProxy = (obj) => {
     const changeUpperCase = (str) => str.toUpperCase();
+    const isFullName = (prop) => prop === 'fullName';
 
     return new Proxy(obj, {
-        get(target, key, receiver) {
-            if (key === 'fullName') return `${target.firstName} ${target.lastName}`;
-            return Reflect.get(target, key, receiver);
+        get(target, prop, receiver) {
+            if (isFullName(prop)) return `${target.firstName} ${target.lastName}`;
+            return Reflect.get(target, prop, receiver);
         },
 
-        set(target, key, val, receiver) {
+        set(target, prop, val, receiver) {
             if (typeof val !== 'string') return false;
 
-            if (key === 'fullName') {
+            if (isFullName(prop)) {
                 const [first, last] = val.split(' ');
 
                 last === undefined ?
@@ -26,7 +27,7 @@ const createProxy = (obj) => {
 
                 return true;
             }
-            return Reflect.set(target, key, val, receiver);
+            return Reflect.set(target, prop, val, receiver);
         }
     });
 };
