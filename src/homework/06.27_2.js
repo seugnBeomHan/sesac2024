@@ -3,28 +3,32 @@ import assert from 'assert/strict';
 Reflect.defineProperty(Array.prototype, 'firstObject',
     {
         get() { return this[0] },
-
     });
 
 Reflect.defineProperty(Array.prototype, 'lastObject',
     {
         get() { return this[this.length - 1] },
-
     });
 
+const isObjectKeyType = (key) => typeof key === 'string' || typeof key === 'symbol';
+
 Array.prototype.mapBy = function (key) {
+    if (!isObjectKeyType(key)) return;
     return this.map((e) => e[key]);
 };
 
 Array.prototype.findBy = function (key, value) {
+    if (!isObjectKeyType(key)) return;
     return this.find((e) => e[key] === value);
 };
 
 Array.prototype.filterBy = function (key, value) {
+    if (!isObjectKeyType(key)) return;
     return this.filter((e) => e[key] === value);
 };
 
 Array.prototype.rejectBy = function (key, value) {
+    if (!isObjectKeyType(key)) return;
     return this.filter((e) => e[key] !== value);
 };
 
