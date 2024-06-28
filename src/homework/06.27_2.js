@@ -51,7 +51,6 @@ const users = [hong, lee, kim];
 
 assert.deepStrictEqual(users.firstObject, hong);
 assert.deepStrictEqual(users.lastObject, kim);
-
 assert.deepStrictEqual(users.mapBy('id'), [1, 3, 2]);
 assert.deepStrictEqual(users.mapBy('name'), ['Hong', 'Lee', 'Kim']);
 assert.deepStrictEqual(users, [hong, lee, kim]);
