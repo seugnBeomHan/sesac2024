@@ -4,7 +4,7 @@ class Collection {
     #array;
 
     constructor() {
-        if (this.#getConstructor(this) === 'Collection') {
+        if (this.#getConstructor() === 'Collection') {
             throw new ReferenceError('Collection type objects cannot be created');
         }
 
@@ -40,7 +40,7 @@ class Collection {
     }
 
     remove() {
-        switch (this.#getConstructor(this)) {
+        switch (this.#getConstructor()) {
             case 'Stack':
                 return this.pop();
             case 'Queue':
@@ -62,8 +62,8 @@ class Collection {
         this.#array = [];
     }
 
-    #getConstructor(thisObj) {
-        return thisObj.constructor.name;
+    #getConstructor() {
+        return this.constructor.name;
     }
 }
 
