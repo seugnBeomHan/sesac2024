@@ -7,18 +7,18 @@ class Emp {
     constructor() {
         const proxyObj = new Proxy(this, {
             get(target, prop, receiver) {
-                if (target.isFullName(prop)) return `${target.firstName} ${target.lastName}`;
+                if (target.#isFullName(prop)) return `${target.firstName} ${target.lastName}`;
                 return Reflect.get(target, prop, receiver);
             },
 
             set(target, prop, val, receiver) {
                 if (typeof val !== 'string') return false;
-                if (target.isFullName(prop)) {
+                if (target.#isFullName(prop)) {
                     const [first, last] = val.split(' ');
 
                     last === undefined ?
-                        target.lastName = target.changeUpperCase(first) :
-                        (target.firstName = first, target.lastName = target.changeUpperCase(last));
+                        target.lastName = target.#changeUpperCase(first) :
+                        (target.firstName = first, target.lastName = target.#changeUpperCase(last));
 
                     return true;
                 }
@@ -28,11 +28,11 @@ class Emp {
         return proxyObj;
     }
 
-    changeUpperCase(str) {
+    #changeUpperCase(str) {
         return str.toUpperCase();
     }
 
-    isFullName(prop) {
+    #isFullName(prop) {
         return prop === 'fullName';
     }
 }
