@@ -10,6 +10,11 @@ class Queue {
      * 전체 Queue 인스턴스에 공통적으로 사용
      */
     static #ABANDONED_SPACE_MAX = 4;
+    static setAbandonedSpaceCount(count) {
+        if (count % 4 !== 0) return false;
+        Queue.#ABANDONED_SPACE_MAX = count;
+        return true;
+    }
 
     constructor(...args) {
         this.#queue = [];
@@ -81,6 +86,23 @@ class Queue {
     #getCurrentQueue() {
         return this.#queue.slice(this.#front, this.#length);
     }
+
+    iterator() {
+        return this[Symbol.iterator]();
+    }
+
+    [Symbol.iterator]() {
+        let index = this.#front;
+        const currentQueue = this.toArray();
+        return {
+            next: () => {
+                return {
+                    value: currentQueue[index++],
+                    done: index > this.getLength()
+                }
+            }
+        }
+    }
 }
 
 const queue = new Queue();
@@ -142,3 +164,21 @@ assert.deepStrictEqual(queueReset.dequeue(), 7);
 assert.deepStrictEqual(queueReset.getLength(), 0);
 assert.deepStrictEqual(queueReset.dequeue(), undefined);
 assert.deepStrictEqual(queueReset.getLength(), 0);
+
+const iterQueue = new Queue(1, 2, 3, 4, 5, 6, 7);
+const iter = iterQueue.iterator();
+
+assert.deepStrictEqual(iter.next().value, 1);
+assert.deepStrictEqual(iter.next().value, 2);
+assert.deepStrictEqual(iter.next().value, 3);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().value, 6);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, true);
+
+const iterQueue2 = new Queue();
+const iter2 = iterQueue2.iterator();
+
+assert.deepStrictEqual(iter2.next().done, true);
+assert.deepStrictEqual(iter2.next().value, undefined);
