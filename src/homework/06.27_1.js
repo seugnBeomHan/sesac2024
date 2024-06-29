@@ -5,7 +5,7 @@ class Emp {
     lastName;
 }
 
-const createProxy = (obj) => {
+const makeProxyObject = (obj) => {
     const changeUpperCase = (str) => str.toUpperCase();
     const isFullName = (prop) => prop === 'fullName';
 
@@ -32,7 +32,7 @@ const createProxy = (obj) => {
     });
 };
 
-const hong = createProxy(new Emp());
+const hong = makeProxyObject(new Emp());
 
 hong.fullName = 'Kildong Hong';
 assert.deepStrictEqual(hong.fullName, 'Kildong HONG');
