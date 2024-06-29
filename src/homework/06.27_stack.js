@@ -55,11 +55,29 @@ class Stack {
         this.#stack = [];
         this.#length = 0;
     }
+
+    iterator() {
+        return this[Symbol.iterator]();
+    }
+
+    [Symbol.iterator]() {
+        let index = this.getLength() - 1;
+        const currentStack = this.toArray();
+        return {
+            next: () => {
+                return {
+                    value: currentStack[index--],
+                    done: index < -1
+                }
+            }
+        }
+    }
 }
 
 const stack = new Stack();
 const stack1 = new Stack(1, 2, 3, 4, 5);
 const stack2 = new Stack([1, 2], [3, 4, 5]);
+
 assert.deepStrictEqual(stack.toArray(), []);
 assert.deepStrictEqual(stack1.toArray(), [1, 2, 3, 4, 5]);
 assert.deepStrictEqual(stack2.toArray(), [[1, 2,], [3, 4, 5]]);
@@ -129,3 +147,21 @@ assert.deepStrictEqual(stack1.isEmpty(), true);
 assert.deepStrictEqual(stack1.peek(), undefined);
 assert.deepStrictEqual(stack2.isEmpty(), true);
 assert.deepStrictEqual(stack2.peek(), undefined);
+
+const iterStack = new Stack(1, 2, 3, 4, 5, 6, 7);
+const iter = iterStack.iterator();
+
+assert.deepStrictEqual(iter.next().value, 7);
+assert.deepStrictEqual(iter.next().value, 6);
+assert.deepStrictEqual(iter.next().value, 5);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().value, 2);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, true);
+
+const iterStack2 = new Stack();
+const iter2 = iterStack2.iterator();
+
+assert.deepStrictEqual(iter2.next().value, undefined);
+assert.deepStrictEqual(iter2.next().done, true);
