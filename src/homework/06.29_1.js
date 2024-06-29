@@ -17,13 +17,13 @@ console.log(addIter.next().value);
 
 prompt.on('line', (input) => {
     if (Number.isInteger(+input)) {
-        const nextObj = addIter.next(+input);
+        const { value, done } = addIter.next(+input);
 
-        if (nextObj.done) {
-            console.log(`Total: ${nextObj.value}`);
+        if (done) {
+            console.log(`Total: ${value}`);
             prompt.close();
         }
 
-        console.log(nextObj.value);
+        console.log(value);
     }
 }).on('close', () => process.exit());
