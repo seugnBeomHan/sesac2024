@@ -50,43 +50,33 @@
  */
 {
     let i = 0;
-    {
-        if (i < 5) {
-            setTimeout(() => { console.log(i); });
-            let i = i;
-            i += 1;
-        }
+    if (i < 5) {
+        setTimeout(() => { console.log(i); });
+        let i = i;
+        i += 1;
     }
 
-    {
-        if (i < 5) {
-            setTimeout(() => { console.log(i); });
-            let i = i;
-            i += 1;
-        }
+    if (i < 5) {
+        setTimeout(() => { console.log(i); });
+        let i = i;
+        i += 1;
     }
 
-    {
-        if (i < 5) {
-            setTimeout(() => { console.log(i); });
-            let i = i;
-            i += 1;
-        }
+    if (i < 5) {
+        setTimeout(() => { console.log(i); });
+        let i = i;
+        i += 1;
     }
 
-    {
-        if (i < 5) {
-            setTimeout(() => { console.log(i); });
-            let i = i;
-            i += 1;
-        }
+    if (i < 5) {
+        setTimeout(() => { console.log(i); });
+        let i = i;
+        i += 1;
     }
 
-    {
-        if (i < 5) {
-            setTimeout(() => { console.log(i); });
-            let i = i;
-            i += 1;
-        }
+    if (i < 5) {
+        setTimeout(() => { console.log(i); });
+        let i = i;
+        i += 1;
     }
 }

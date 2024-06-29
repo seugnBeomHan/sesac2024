@@ -1,20 +1,32 @@
 import assert from 'assert/strict';
 
 class Collection {
-    _array;
-    _length;
+    #array;
+    #length;
 
     constructor() {
-        this._array = [];
-        this._length = 0;
+        this.#array = [];
+        this.#length = 0;
     }
 
-    get length() {
-        return this._length;
+    get _array() {
+        return this.#array;
+    }
+
+    set _array(array) {
+        throw new ReferenceError('The property is inaccessible');
+    }
+
+    get _length() {
+        return this.#length;
+    }
+
+    set _length(value) {
+        throw new ReferenceError('The property is inaccessible');
     }
 
     get isEmpty() {
-        return this._length === 0;
+        return this.#length === 0;
     }
 
     get peek() {
@@ -34,16 +46,16 @@ class Collection {
     }
 
     toArray() {
-        return [...this._array];
+        return [...this.#array];
     }
 
     print() {
-        console.log(...this._array);
+        console.log(...this.#array);
     }
 
     clear() {
-        this._array = [];
-        this._length = 0;
+        this.#array = [];
+        this.#length = 0;
     }
 }
 
