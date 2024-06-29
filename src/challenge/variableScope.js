@@ -43,40 +43,51 @@
  * 그렇기 때문에 블럭은 각각 생성된다. 
  */
 
-/**
- * for (let i = 0; i < 5; i += 1) {
-    setTimeout(() => { console.log(i); });
-}
- */
+
+// function f() {
+//     const arr = [];
+//     for (let i = 0; i < 5; i += 1) {
+//         arr[i] = i;
+//     }
+// }
+// f();
+
+
 {
-    let i = 0;
-    if (i < 5) {
+    let ii = 0;
+    if (ii < 5) {
+        let i = ii;
         setTimeout(() => { console.log(i); });
-        let i = i;
-        i += 1;
+        ii += 1;
     }
 
-    if (i < 5) {
+    if (ii < 5) {
+        let i = ii;
         setTimeout(() => { console.log(i); });
-        let i = i;
-        i += 1;
+        ii += 1;
     }
 
-    if (i < 5) {
+    if (ii < 5) {
+        let i = ii;
         setTimeout(() => { console.log(i); });
-        let i = i;
-        i += 1;
+        ii += 1;
     }
 
-    if (i < 5) {
+    if (ii < 5) {
+        let i = ii;
         setTimeout(() => { console.log(i); });
-        let i = i;
-        i += 1;
+        ii += 1;
     }
 
-    if (i < 5) {
+    if (ii < 5) {
+        let i = ii;
         setTimeout(() => { console.log(i); });
-        let i = i;
-        i += 1;
+        ii += 1;
+    }
+
+    if (ii < 5) {
+        let i = ii;
+        setTimeout(() => { console.log(i); });
+        ii += 1;
     }
 }
