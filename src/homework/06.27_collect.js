@@ -4,6 +4,10 @@ class Collection {
     #array;
 
     constructor() {
+        if (this.#getConstructor(this) === 'Collection') {
+            throw new ReferenceError('Collection type objects cannot be created');
+        }
+
         this.#array = [];
     }
 
@@ -32,15 +36,18 @@ class Collection {
     }
 
     get poll() {
-        return this.constructor.name === 'Stack' ?
-            this.pop() :
-            this.dequeue();
+        return this.remove();
     }
 
     remove() {
-        return this.constructor.name === 'Stack' ?
-            this.pop() :
-            this.dequeue();
+        switch (this.#getConstructor(this)) {
+            case 'Stack':
+                return this.pop();
+            case 'Queue':
+                return this.dequeue();
+            default:
+                throw new ReferenceError('This is a non-callable object type');
+        }
     }
 
     toArray() {
@@ -53,6 +60,10 @@ class Collection {
 
     clear() {
         this.#array = [];
+    }
+
+    #getConstructor(thisObj) {
+        return thisObj.constructor.name;
     }
 }
 
