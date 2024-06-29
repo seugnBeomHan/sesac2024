@@ -5,7 +5,7 @@ class Emp {
     lastName;
 
     constructor() {
-        const ret = new Proxy(this, {
+        const proxyObj = new Proxy(this, {
             get(target, prop, receiver) {
                 if (target.isFullName(prop)) return `${target.firstName} ${target.lastName}`;
                 return Reflect.get(target, prop, receiver);
@@ -25,50 +25,58 @@ class Emp {
                 return Reflect.set(target, prop, val, receiver);
             }
         });
-        return ret;
+        return proxyObj;
     }
 
     changeUpperCase(str) { return str.toUpperCase(); }
     isFullName(prop) { return prop === 'fullName'; }
 }
 
-// const makeProxyObject = (obj) => {
-//     const changeUpperCase = (str) => str.toUpperCase();
-//     const isFullName = (prop) => prop === 'fullName';
+const makeProxyObject = (obj) => {
+    const changeUpperCase = (str) => str.toUpperCase();
+    const isFullName = (prop) => prop === 'fullName';
 
-//     return new Proxy(obj, {
-//         get(target, prop, receiver) {
-//             if (isFullName(prop)) return `${target.firstName} ${target.lastName}`;
-//             return Reflect.get(target, prop, receiver);
-//         },
+    return new Proxy(obj, {
+        get(target, prop, receiver) {
+            if (isFullName(prop)) return `${target.firstName} ${target.lastName}`;
+            return Reflect.get(target, prop, receiver);
+        },
 
-//         set(target, prop, val, receiver) {
-//             if (typeof val !== 'string') return false;
+        set(target, prop, val, receiver) {
+            if (typeof val !== 'string') return false;
 
-//             if (isFullName(prop)) {
-//                 const [first, last] = val.split(' ');
+            if (isFullName(prop)) {
+                const [first, last] = val.split(' ');
 
-//                 last === undefined ?
-//                     target.lastName = changeUpperCase(first) :
-//                     (target.firstName = first, target.lastName = changeUpperCase(last));
+                last === undefined ?
+                    target.lastName = changeUpperCase(first) :
+                    (target.firstName = first, target.lastName = changeUpperCase(last));
 
-//                 return true;
-//             }
-//             return Reflect.set(target, prop, val, receiver);
-//         }
-//     });
-// };
+                return true;
+            }
+            return Reflect.set(target, prop, val, receiver);
+        }
+    });
+};
 
-// const hong = makeProxyObject(new Emp());
+const hongProxyObj = makeProxyObject(new Emp());
+hongProxyObj.fullName = 'Kildong Hong';
+assert.deepStrictEqual(hongProxyObj.fullName, 'Kildong HONG');
+assert.deepStrictEqual(hongProxyObj.firstName, 'Kildong');
+assert.deepStrictEqual(hongProxyObj.lastName, 'HONG');
 
-const hong = new Emp();
+hongProxyObj.fullName = 'LEE';
+assert.deepStrictEqual(hongProxyObj.fullName, 'Kildong LEE');
+assert.deepStrictEqual(hongProxyObj.firstName, 'Kildong');
+assert.deepStrictEqual(hongProxyObj.lastName, 'LEE');
 
-hong.fullName = 'Kildong Hong';
-assert.deepStrictEqual(hong.fullName, 'Kildong HONG');
-assert.deepStrictEqual(hong.firstName, 'Kildong');
-assert.deepStrictEqual(hong.lastName, 'HONG');
+const hongConstructor = new Emp();
+hongConstructor.fullName = 'Kildong Hong';
+assert.deepStrictEqual(hongConstructor.fullName, 'Kildong HONG');
+assert.deepStrictEqual(hongConstructor.firstName, 'Kildong');
+assert.deepStrictEqual(hongConstructor.lastName, 'HONG');
 
-hong.fullName = 'LEE';
-assert.deepStrictEqual(hong.fullName, 'Kildong LEE');
-assert.deepStrictEqual(hong.firstName, 'Kildong');
-assert.deepStrictEqual(hong.lastName, 'LEE');
+hongConstructor.fullName = 'LEE';
+assert.deepStrictEqual(hongConstructor.fullName, 'Kildong LEE');
+assert.deepStrictEqual(hongConstructor.firstName, 'Kildong');
+assert.deepStrictEqual(hongConstructor.lastName, 'LEE');
