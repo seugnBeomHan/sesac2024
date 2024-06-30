@@ -51,12 +51,12 @@ class Subway {
         '문래',
     ];
 
-    static #stationIndexOf(station) {
-        return Subway.#LINE_2.indexOf(station);
+    static stationCount() {
+        return Subway.#LINE_2.length;
     }
 
-    static #stationCount() {
-        return Subway.#LINE_2.length;
+    static #stationIndexOf(station) {
+        return Subway.#LINE_2.indexOf(station);
     }
 
     static #stationsToArray(dIndex, aIndex) {
@@ -87,6 +87,7 @@ class Subway {
             (departuresIndex === arrivalsIndex)) {
             return true;
         }
+
         return false;
     }
 
@@ -96,9 +97,8 @@ class Subway {
 
         return arrivalsIndex > departuresIndex ?
             Subway.#stationsToArray(departuresIndex, arrivalsIndex + 1) :
-            [...Subway.#stationsToArray(departuresIndex, Subway.#stationCount()),
-            ...Subway.#stationsToArray(0, arrivalsIndex + 1)
-            ];
+            [...Subway.#stationsToArray(departuresIndex, Subway.stationCount()),
+            ...Subway.#stationsToArray(0, arrivalsIndex + 1)];
     }
 
     iterator() {
@@ -185,6 +185,7 @@ assert.deepStrictEqual([...route3], [
     '교대', '강남', '역삼',
     '선릉', '삼성'
 ]);
+assert.deepStrictEqual([...route3].length, Subway.stationCount());
 
 const iter3 = route3.iterator();
 while (true) {
