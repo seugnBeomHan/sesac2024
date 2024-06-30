@@ -43,6 +43,11 @@ Array.prototype.sortBy = function (keyAndOrder) {
         result.sort((e1, e2) => e1[key] > e2[key] ? -1 : 1);
 };
 
+Array.prototype.uniqBy = function (key) {
+    if (!isObjectKeyType(key)) return;
+    return [...this.reduce((acc, cur) => acc.add(cur[key]), new Set())];
+}
+
 const arr = [1, 2, 3, 4, 5];
 
 assert.deepStrictEqual(arr.firstObject, 1);
@@ -72,3 +77,19 @@ assert.deepStrictEqual(users, [hong, lee, kim]);
 assert.deepStrictEqual(users.sortBy('name'), [hong, kim, lee]);
 assert.deepStrictEqual(users.sortBy('name:desc'), [lee, kim, hong]);
 assert.deepStrictEqual(users, [hong, lee, kim]);
+
+// uniqBy
+const hongUniq = { id: 1, name: 'Hong', dept: 'HR' };
+const hongUniq2 = { id: 1, name: 'Hong', dept: 'HR' };
+const kimUniq = { id: 2, name: 'Kim', dept: 'Server' };
+const leeUniq = { id: 3, name: 'Lee', dept: 'Front' };
+const leeUniq2 = { id: 3, name: 'Lee', dept: 'Front' };
+const parkUniq = { id: 4, name: 'Park', dept: 'HR' };
+const koUniq = { id: 7, name: 'Ko', dept: 'Server' };
+const koUniq2 = { id: 7, name: 'Ko', dept: 'Server' };
+const loonUniq = { id: 6, name: 'Loon', dept: 'Sales' };
+const loonUniq2 = { id: 6, name: 'Loon', dept: 'Sales' };
+const choiUniq = { id: 5, name: 'Choi', dept: 'Front' };
+const usersUniq = [hongUniq, hongUniq2, kimUniq, leeUniq, leeUniq2, parkUniq, koUniq, koUniq2, loonUniq, loonUniq2, choiUniq];
+assert.deepStrictEqual(usersUniq.uniqBy('dept'), ['HR', 'Server', 'Front', 'Sales']);
+assert.deepStrictEqual(usersUniq.uniqBy('name'), ['Hong', 'Kim', 'Lee', 'Park', 'Ko', 'Loon', 'Choi']); 
