@@ -62,6 +62,10 @@ class Collection {
         this.#array = [];
     }
 
+    iterator() {
+        return this[Symbol.iterator]();
+    }
+
     #getConstructor() {
         return this.constructor.name;
     }
@@ -87,6 +91,19 @@ class Stack extends Collection {
         if (this.isEmpty) return;
         return this._array[this._length - 1];
     }
+
+    [Symbol.iterator]() {
+        let index = this._length - 1;
+        const currentStack = this.toArray();
+        return {
+            next: () => {
+                return {
+                    value: currentStack[index--],
+                    done: index < -1
+                }
+            }
+        }
+    }
 }
 
 class Queue extends Collection {
@@ -108,6 +125,19 @@ class Queue extends Collection {
     get peek() {
         if (this.isEmpty) return;
         return this._array[0];
+    }
+
+    [Symbol.iterator]() {
+        let index = 0;
+        const currentQueue = this.toArray();
+        return {
+            next: () => {
+                return {
+                    value: currentQueue[index++],
+                    done: index > this._length
+                }
+            }
+        }
     }
 }
 
@@ -184,6 +214,24 @@ assert.deepStrictEqual(stack1.peek, undefined);
 assert.deepStrictEqual(stack2.isEmpty, true);
 assert.deepStrictEqual(stack2.peek, undefined);
 
+const iterStack = new Stack(1, 2, 3, 4, 5, 6, 7);
+const iterObj1 = iterStack.iterator();
+
+assert.deepStrictEqual(iterObj1.next().value, 7);
+assert.deepStrictEqual(iterObj1.next().value, 6);
+assert.deepStrictEqual(iterObj1.next().value, 5);
+assert.deepStrictEqual(iterObj1.next().done, false);
+assert.deepStrictEqual(iterObj1.next().done, false);
+assert.deepStrictEqual(iterObj1.next().value, 2);
+assert.deepStrictEqual(iterObj1.next().done, false);
+assert.deepStrictEqual(iterObj1.next().done, true);
+
+const iterStack2 = new Stack();
+const iterObj2 = iterStack2.iterator();
+
+assert.deepStrictEqual(iterObj2.next().value, undefined);
+assert.deepStrictEqual(iterObj2.next().done, true);
+
 const queue = new Queue();
 assert.deepStrictEqual(queue.isEmpty, true);
 
@@ -243,3 +291,21 @@ assert.deepStrictEqual(queueReset.dequeue(), 7);
 assert.deepStrictEqual(queueReset._length, 0);
 assert.deepStrictEqual(queueReset.dequeue(), undefined);
 assert.deepStrictEqual(queueReset._length, 0);
+
+const iterQueue = new Queue(1, 2, 3, 4, 5, 6, 7);
+const iter = iterQueue.iterator();
+
+assert.deepStrictEqual(iter.next().value, 1);
+assert.deepStrictEqual(iter.next().value, 2);
+assert.deepStrictEqual(iter.next().value, 3);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().value, 6);
+assert.deepStrictEqual(iter.next().done, false);
+assert.deepStrictEqual(iter.next().done, true);
+
+const iterQueue2 = new Queue();
+const iter2 = iterQueue2.iterator();
+
+assert.deepStrictEqual(iter2.next().done, true);
+assert.deepStrictEqual(iter2.next().value, undefined);
