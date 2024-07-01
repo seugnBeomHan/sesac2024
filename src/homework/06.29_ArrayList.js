@@ -160,11 +160,7 @@ class ArrayList {
 
         while (target !== undefined) {
             if (target.value === value) {
-                if (target.next === undefined) this.#tail = targetPrev;
-                targetPrev.next = target.next;
-                delete target.next;
-                this.#decreaseLength();
-
+                this.#deleteMiddleElement(targetPrev, target);
                 return target;
             }
             targetPrev = target;
@@ -187,11 +183,7 @@ class ArrayList {
             target = target.next;
         };
 
-        if (target.next === undefined) this.#tail = targetPrev;
-        targetPrev.next = target.next;
-        delete target.next;
-        this.#decreaseLength();
-
+        this.#deleteMiddleElement(targetPrev, target);
         return target;
     }
 
@@ -252,6 +244,14 @@ class ArrayList {
 
     #createNewObj(value) {
         return { 'value': value };
+    }
+
+    #deleteMiddleElement(targetPrev, target) {
+        if (target.next === undefined) this.#tail = targetPrev;
+        targetPrev.next = target.next;
+        delete target.next;
+        this.#decreaseLength();
+
     }
 }
 
