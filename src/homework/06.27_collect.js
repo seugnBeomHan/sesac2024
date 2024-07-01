@@ -28,11 +28,11 @@ class Collection {
     }
 
     get isEmpty() {
-        return this.#array.length === 0;
+        return this._length === 0;
     }
 
     get peek() {
-        return this.peek;
+        throw new ReferenceError('That method requires overriding');
     }
 
     get poll() {
