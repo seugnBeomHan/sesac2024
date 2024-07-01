@@ -112,11 +112,15 @@ class ArrayList {
         const newObj = this.#createNewObj(value);
 
         let target = this.#list;
-        for (let i = 0; i === index; i += 1, target = target.next);
+        let targetPrev = undefined;
 
-        const tmp = target.next;
-        target.next = newObj;
-        newObj.next = tmp;
+        for (let i = 0; i < index; i += 1) {
+            targetPrev = target;
+            target = target.next;
+        }
+
+        targetPrev.next = newObj;
+        newObj.next = target;
 
         return true;
     }
@@ -149,32 +153,56 @@ class ArrayList {
 
     removeValue(value) {
         if (this.isEmpty()) return;
-        if (this.size === 1) return this.removeFirst();
+        if (this.size === 1 || this.peek === value) return this.removeFirst();
 
         let target = this.#list;
-        let targetPrev = this.#list;
+        let targetPrev = undefined;
+
         while (target !== undefined) {
             if (target.value === value) {
-                const result = target;
+                if (target.next === undefined) this.#tail = targetPrev;
                 targetPrev.next = target.next;
-                delete result.next;
+                delete target.next;
                 this.#decreaseLength();
 
-                return result;
+                return target;
             }
             targetPrev = target;
             target = target.next;
         }
+
         return;
     }
 
     removeIndex(index) {
+        if (this.isEmpty()) return;
+        if (this.size === 1 || index <= 0) return this.removeFirst();
+        if (index >= this.size - 1) return this.removeLast();
 
+        let target = this.#list;
+        let targetPrev = undefined;
+
+        for (let i = 0; i < index; i += 1) {
+            targetPrev = target;
+            target = target.next;
+        };
+
+        if (target.next === undefined) this.#tail = targetPrev;
+        targetPrev.next = target.next;
+        delete target.next;
+        this.#decreaseLength();
+
+        return target;
     }
 
     get() { }
 
     set() { }
+
+    get peek() {
+        if (this.isEmpty()) return;
+        return this.#list.value;
+    }
 
     get size() {
         return this.#length;
@@ -223,7 +251,7 @@ class ArrayList {
     }
 
     #createNewObj(value) {
-        return { 'value': value }
+        return { 'value': value };
     }
 }
 
@@ -237,17 +265,19 @@ list.print();
 list.add(10);
 list.add(100, 0);
 list.add(30, 1);
+list.add(40, 1);
+list.add(50, 1);
 
 list.print();
 
-assert.deepStrictEqual(list.size, 8);
+assert.deepStrictEqual(list.size, 10);
 assert.deepStrictEqual(list.removeFirst(), { value: 100 });
-assert.deepStrictEqual(list.size, 7);
+assert.deepStrictEqual(list.size, 9);
 
 list.print();
 
 assert.deepStrictEqual(list.removeLast(), { value: 10 });
-assert.deepStrictEqual(list.size, 6);
+assert.deepStrictEqual(list.size, 8);
 
 list.print();
 
@@ -272,17 +302,32 @@ removeList.print();
 
 removeList.add([10, 20, 30]);
 removeList.print();
-removeList.removeLast();
-removeList.removeLast();
+assert.deepStrictEqual(removeList.removeLast(), { value: 30 });
+assert.deepStrictEqual(removeList.removeLast(), { value: 20 });
 removeList.print();
 removeList.add(100, 0);
 removeList.add(200, 1);
 removeList.print();
-removeList.removeLast();
+assert.deepStrictEqual(removeList.removeLast(), { value: 10 });
 removeList.print();
-removeList.removeValue(100);
+assert.deepStrictEqual(removeList.removeValue(100), { value: 100 });
 removeList.print();
-removeList.removeValue(200);
+assert.deepStrictEqual(removeList.removeValue(200), { value: 200 });
+removeList.print();
+removeList.add([1, 2, 3, 4, 5]);
+removeList.print();
+assert.deepStrictEqual(removeList.removeValue(4), { value: 4 });
+removeList.print();
+assert.deepStrictEqual(removeList.removeValue(5), { value: 5 });
+removeList.print();
+assert.deepStrictEqual(removeList.removeValue(1), { value: 1 });
+removeList.print();
+removeList.add([1, 2, 3, 4, 5]);
+removeList.print();
+assert.deepStrictEqual(removeList.removeIndex(2), { value: 1 });
+assert.deepStrictEqual(removeList.removeIndex(2), { value: 2 });
+assert.deepStrictEqual(removeList.removeIndex(2), { value: 3 });
+assert.deepStrictEqual(removeList.removeIndex(2), { value: 4 });
 removeList.print();
 
 // const alist = new ArrayList([1, 2]);
