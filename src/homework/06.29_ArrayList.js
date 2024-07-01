@@ -141,9 +141,9 @@ class ArrayList {
         if (this.size === 1) return this.removeFirst();
 
         let target = this.#list;
-        while (target.next?.next !== undefined) target = target.next;
+        while (target.next.next !== undefined) target = target.next;
 
-        const result = target.next || target;
+        const result = target.next;
         this.#tail = target;
         delete target.next;
         this.#decreaseLength();
@@ -328,6 +328,8 @@ assert.deepStrictEqual(removeList.removeIndex(2), { value: 1 });
 assert.deepStrictEqual(removeList.removeIndex(2), { value: 2 });
 assert.deepStrictEqual(removeList.removeIndex(2), { value: 3 });
 assert.deepStrictEqual(removeList.removeIndex(2), { value: 4 });
+removeList.print();
+removeList.add([1, 2, 3, 4, 5]);
 removeList.print();
 
 // const alist = new ArrayList([1, 2]);
