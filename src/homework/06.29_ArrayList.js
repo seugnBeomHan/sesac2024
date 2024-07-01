@@ -265,7 +265,16 @@ class ArrayList {
     }
 
     [Symbol.iterator]() {
-        
+        const curArrayList = this.toArray();
+        let index = 0;
+        return {
+            next: () => {
+                return {
+                    value: curArrayList[index++],
+                    done: index > this.size
+                }
+            }
+        }
     }
 
     clear() {
@@ -399,3 +408,14 @@ assert.deepStrictEqual(removeList.contains(2), true);
 assert.deepStrictEqual(removeList.contains(200), true);
 assert.deepStrictEqual(removeList.contains(2000), true);
 assert.deepStrictEqual(removeList.contains(3000), false);
+
+const iter = removeList[Symbol.iterator]();
+assert.deepStrictEqual(iter.next(), { value: 200, done: false });
+assert.deepStrictEqual(iter.next(), { value: 300, done: false });
+assert.deepStrictEqual(iter.next(), { value: 400, done: false });
+assert.deepStrictEqual(iter.next(), { value: 500, done: false });
+assert.deepStrictEqual(iter.next(), { value: 2, done: false });
+assert.deepStrictEqual(iter.next(), { value: 3, done: false });
+assert.deepStrictEqual(iter.next(), { value: 4, done: false });
+assert.deepStrictEqual(iter.next(), { value: 2000, done: false });
+assert.deepStrictEqual(iter.next(), { value: undefined, done: true });
