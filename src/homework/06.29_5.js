@@ -20,10 +20,8 @@ console.log('empMap >> ', empMap);
 
 const empDeptMap = new Map();
 for (const emp of empMap.values()) {
-    const { dept: deptNum } = emp;
-
     for (const dept of deptMap.values()) {
-        if (deptNum === dept.id) {
+        if (emp.dept === dept.id) {
             empDeptMap.set(emp, dept);
             break;
         }
