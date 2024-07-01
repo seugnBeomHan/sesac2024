@@ -39,10 +39,7 @@ class ArrayList {
     #length;
 
     constructor(...args) {
-        this.#list = {};
-        this.#tail = this.#list;
-        this.#length = 0;
-
+        this.clear();
         if (args.length !== 0) this.add(...args);
     }
 
@@ -180,8 +177,16 @@ class ArrayList {
             targetPrev = target;
             target = target.next;
         };
-
         return this.#deleteMiddleElement(targetPrev, target);
+    }
+
+    #deleteMiddleElement(targetPrev, target) {
+        if (target.next === undefined) this.#tail = targetPrev;
+        targetPrev.next = target.next;
+        delete target.next;
+
+        this.#decreaseLength();
+        return target;
     }
 
     get(index) {
@@ -294,15 +299,6 @@ class ArrayList {
     #createNewObj(value) {
         return { 'value': value };
     }
-
-    #deleteMiddleElement(targetPrev, target) {
-        if (target.next === undefined) this.#tail = targetPrev;
-        targetPrev.next = target.next;
-        delete target.next;
-
-        this.#decreaseLength();
-        return target;
-    }
 }
 
 assert.deepStrictEqual(ArrayList.listToArray({ value: 1, next: { value: 2, next: { value: 3 } } }), [1, 2, 3]);
@@ -311,13 +307,11 @@ assert.deepStrictEqual(ArrayList.arrayToList([1, 2, 3]), { value: 1, next: { val
 const list = new ArrayList([1, 2, 3, 4, 5]);
 
 list.print();
-
 list.add(10);
 list.add(100, 0);
 list.add(30, 1);
 list.add(40, 1);
 list.add(50, 1);
-
 list.print();
 
 assert.deepStrictEqual(list.size, 10);
@@ -339,15 +333,15 @@ list.print();
 const removeList = new ArrayList([1, 2, 3]);
 removeList.print();
 
-console.log('remove1: ', removeList.removeFirst());
+assert.deepStrictEqual(removeList.removeFirst(), { value: 1 });
 removeList.print();
 removeList.add(10, 100);
 removeList.print();
-console.log('remove2: ', removeList.removeLast());
+assert.deepStrictEqual(removeList.removeLast(), { value: 10 });
 removeList.print();
-console.log('remove3: ', removeList.removeLast());
+assert.deepStrictEqual(removeList.removeLast(), { value: 3 });
 removeList.print();
-console.log('remove4: ', removeList.removeLast());
+assert.deepStrictEqual(removeList.removeLast(), { value: 2 });
 removeList.print();
 
 removeList.add([10, 20, 30]);
