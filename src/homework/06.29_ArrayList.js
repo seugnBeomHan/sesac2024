@@ -2,18 +2,16 @@ import assert from 'assert/strict';
 
 class ArrayList {
     static listToArray(list) {
-        let { ...copy } = list;
         const result = [];
 
         while (true) {
-            const { value, next } = copy;
+            const { value, next } = list;
 
             result.push(value);
-            copy = next;
+            list = next;
 
-            if (copy === undefined) break;
+            if (list === undefined) break;
         }
-
         return result;
     }
 
@@ -55,6 +53,7 @@ class ArrayList {
         if (this.isEmpty()) {
             this.#list.value = value;
             this.#tail = this.#list;
+
             this.#increaseLength();
             return true;
         }
@@ -68,10 +67,11 @@ class ArrayList {
 
     #addArray(array) {
         if (this.isEmpty()) {
-            this.#tail = array.reduce((tail, value, i) => {
-                if (i === 0) {
-                    this.#increaseLength();
+            this.#tail = array.reduce((tail, value) => {
+                if (tail.value === undefined) {
                     tail.value = value;
+
+                    this.#increaseLength();
                     return tail;
                 }
 
@@ -94,21 +94,20 @@ class ArrayList {
         const newObj = this.#createNewObj(value);
         newObj.next = this.#list;
         this.#list = newObj;
-        this.#increaseLength();
 
+        this.#increaseLength();
         return true;
     }
 
     #addLast(value) {
         this.#tail.next = this.#createNewObj(value);
         this.#tail = this.#tail.next;
-        this.#increaseLength();
 
+        this.#increaseLength();
         return true;
     }
 
     #addIndex(value, index) {
-        this.#increaseLength();
         const newObj = this.#createNewObj(value);
 
         let target = this.#list;
@@ -122,6 +121,7 @@ class ArrayList {
         targetPrev.next = newObj;
         newObj.next = target;
 
+        this.#increaseLength();
         return true;
     }
 
@@ -131,8 +131,8 @@ class ArrayList {
         const result = this.#list;
         this.#list = this.#list.next || (this.#tail = {});
         delete result.next;
-        this.#decreaseLength();
 
+        this.#decreaseLength();
         return result;
     }
 
@@ -146,8 +146,8 @@ class ArrayList {
         const result = target.next;
         this.#tail = target;
         delete target.next;
-        this.#decreaseLength();
 
+        this.#decreaseLength();
         return result;
     }
 
@@ -160,13 +160,11 @@ class ArrayList {
 
         while (target !== undefined) {
             if (target.value === value) {
-                this.#deleteMiddleElement(targetPrev, target);
-                return target;
+                return this.#deleteMiddleElement(targetPrev, target);
             }
             targetPrev = target;
             target = target.next;
         }
-
         return;
     }
 
@@ -183,13 +181,33 @@ class ArrayList {
             target = target.next;
         };
 
-        this.#deleteMiddleElement(targetPrev, target);
-        return target;
+        return this.#deleteMiddleElement(targetPrev, target);
     }
 
-    get() { }
+    get(index) {
+        if (this.isEmpty()) return;
+        if (this.size === 1 || index <= 0) return this.peek;
 
-    set() { }
+        index = index >= this.size ? this.size - 1 : index;
+
+        let target = this.#list;
+        for (let i = 0; i < index; i += 1, target = target.next);
+
+        return target.value;
+    }
+
+    set(index, value) {
+        if (this.isEmpty()) return;
+
+        index = index >= this.size ?
+            this.size - 1 :
+            index < 0 ? 0 : index;
+
+        let target = this.#list;
+        for (let i = 0; i < index; i += 1, target = target.next);
+
+        target.value = value;
+    }
 
     get peek() {
         if (this.isEmpty()) return;
@@ -204,14 +222,36 @@ class ArrayList {
         return this.#tail.value === undefined;
     }
 
-    indexOf() { }
+    indexOf(value) {
+        if (this.isEmpty()) return;
 
-    contains() { }
+        let target = this.#list;
+        for (let i = 0; i < this.size; i += 1, target = target.next) {
+            if (target.value === value) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-    toArray() { }
+    contains(value) {
+        if (this.isEmpty()) return;
+
+        let target = this.#list;
+        for (let i = 0; i < this.size; i += 1, target = target.next) {
+            if (target.value === value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    toArray() {
+        return ArrayList.listToArray(this.#list);
+    }
 
     print() {
-        console.log(`\nArrayList - length: ${this.size}`);
+        console.log(`\nArrayList(${this.size})`);
 
         let start = this.#list;
         while (start !== undefined) {
@@ -225,7 +265,7 @@ class ArrayList {
     }
 
     [Symbol.iterator]() {
-
+        
     }
 
     clear() {
@@ -250,8 +290,9 @@ class ArrayList {
         if (target.next === undefined) this.#tail = targetPrev;
         targetPrev.next = target.next;
         delete target.next;
-        this.#decreaseLength();
 
+        this.#decreaseLength();
+        return target;
     }
 }
 
@@ -331,26 +372,30 @@ assert.deepStrictEqual(removeList.removeIndex(2), { value: 4 });
 removeList.print();
 removeList.add([1, 2, 3, 4, 5]);
 removeList.print();
-
-// const alist = new ArrayList([1, 2]);
-// alist.print(); // { value: 1, next: { value: 2 } }
-
-// alist.add(3);
-// alist.print(); // { value: 1, next: { value: 2, next: { value: 3 } } }
-// alist.add(5, 1);
-// alist.print(); // { value: 1, next: { value: 5, next: { value: 2, next: { value: 3 } }}
-// alist.remove(2);  // { value: 1, next: { value: 3 } }
-// alist.add(22, 1); // { value: 1, next: { value: 22, next: { value: 3 } } }
-// alist.add(33, 1);
-// alist.print(); // ArrayList(4) { value: 1, next: { value: 33, next: { value: 22, next: { value: 3 } } } }
-// alist.set(1, 300);  // { value: 1, next: { value: 300, next: { value: 22, next: { value: 3 } } } }
-// alist.get(2); // 22
-// alist.size;  // 4
-// alist.indexOf(300);  // 1
-// alist.contains(300); // true
-// alist.contains(301);  // false
-// alist.isEmpty; // false
-// alist.peek;  // 3
-// alist.toArray();  // [1, 300, 22, 3]
-// alist.iterator().next();  // { value: 1, done: false }
-// alist.clear();  // all clear
+assert.deepStrictEqual(removeList.toArray(), [2, 3, 5, 1, 2, 3, 4, 5]);
+assert.deepStrictEqual(removeList.get(-1), 2);
+assert.deepStrictEqual(removeList.get(0), 2);
+assert.deepStrictEqual(removeList.get(1), 3);
+assert.deepStrictEqual(removeList.get(2), 5);
+assert.deepStrictEqual(removeList.get(removeList.size), 5);
+assert.deepStrictEqual(removeList.get(removeList.size - 1), 5);
+removeList.set(-1, 100);
+assert.deepStrictEqual(removeList.toArray(), [100, 3, 5, 1, 2, 3, 4, 5]);
+removeList.set(0, 200);
+removeList.set(1, 300);
+removeList.set(2, 400);
+removeList.set(3, 500);
+assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 5]);
+removeList.set(removeList.size, 1000);
+assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 1000]);
+removeList.set(removeList.size - 1, 2000);
+assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 2000]);
+removeList.print();
+assert.deepStrictEqual(removeList.indexOf(100), -1);
+assert.deepStrictEqual(removeList.indexOf(200), 0);
+assert.deepStrictEqual(removeList.indexOf(300), 1);
+assert.deepStrictEqual(removeList.indexOf(2000), removeList.size - 1);
+assert.deepStrictEqual(removeList.contains(2), true);
+assert.deepStrictEqual(removeList.contains(200), true);
+assert.deepStrictEqual(removeList.contains(2000), true);
+assert.deepStrictEqual(removeList.contains(3000), false);
