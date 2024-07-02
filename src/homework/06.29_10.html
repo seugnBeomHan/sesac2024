@@ -102,6 +102,7 @@
         document.getElementById('searchInput').addEventListener('input', debounce(function () {
             const inputBoxValue = document.getElementById('searchInput').value;
             document.getElementById('searchLabel').innerText = '검색 결과 : ' + inputBoxValue;
+            console.log(`${new Date()} >> ${inputBoxValue}`);
         }, 500));
     </script>
 
