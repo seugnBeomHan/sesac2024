@@ -38,6 +38,7 @@ class ArrayList {
 
     add(value, index = this.size) {
         if (value === undefined) return;
+
         if (Array.isArray(value)) return this.#addArray(value);
 
         if (this.isEmpty()) {
@@ -57,19 +58,9 @@ class ArrayList {
 
     #addArray(array) {
         if (this.isEmpty()) {
-            this.#tail = array.reduce((tail, value) => {
-                if (tail.value === undefined) {
-                    tail.value = value;
-
-                    this.#increaseLength();
-                    return tail;
-                }
-
-                this.#increaseLength();
-                return tail.next = this.#createNewObj(value);
-            }, this.#tail);
-
-            return true;
+            this.#tail.value = array[0];
+            this.#increaseLength();
+            array = array.slice(1);
         }
 
         this.#tail = array.reduce((tail, value) => {
@@ -98,6 +89,8 @@ class ArrayList {
     }
 
     #addIndex(value, index) {
+        index = index = this.#indexReorder(index);
+
         const newObj = this.#createNewObj(value);
 
         let target = this.#list;
@@ -186,7 +179,7 @@ class ArrayList {
         if (this.isEmpty()) return;
         if (this.size === 1 || index <= 0) return this.peek;
 
-        index = index >= this.size ? this.size - 1 : index;
+        index = this.#indexReorder(index);
 
         let target = this.#list;
         for (let i = 0; i < index; i += 1, target = target.next);
@@ -197,14 +190,18 @@ class ArrayList {
     set(index, value) {
         if (this.isEmpty()) return;
 
-        index = index >= this.size ?
-            this.size - 1 :
-            index < 0 ? 0 : index;
+        index = this.#indexReorder(index);
 
         let target = this.#list;
         for (let i = 0; i < index; i += 1, target = target.next);
 
         target.value = value;
+    }
+
+    #indexReorder(index) {
+        return index >= this.size ?
+            this.size - 1 : index < 0 ?
+                0 : index;
     }
 
     get peek() {
@@ -234,14 +231,7 @@ class ArrayList {
 
     contains(value) {
         if (this.isEmpty()) return;
-
-        let target = this.#list;
-        for (let i = 0; i < this.size; i += 1, target = target.next) {
-            if (target.value === value) {
-                return true;
-            }
-        }
-        return false;
+        return this.indexOf(value) > -1;
     }
 
     toArray() {
