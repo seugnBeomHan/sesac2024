@@ -16,22 +16,15 @@ class ArrayList {
     }
 
     static arrayToList(array) {
-        return array.reduce((list, cur) => {
-            if (list.value === undefined) {
-                list.value = cur;
-                return list;
-            }
+        let list = {};
+        list.value = array[0];
 
-            let result = list;
-
-            while (true) {
-                if (result.next === undefined) {
-                    result.next = { 'value': cur };
-                    return list;
-                }
-                result = result.next;
-            }
-        }, {});
+        return array.slice(1).reduce((list, cur) => {
+            let tmpList = list;
+            for (; tmpList.next !== undefined; tmpList = tmpList.next);
+            tmpList.next = { 'value': cur };
+            return list;
+        }, list);
     }
 
     #list;
