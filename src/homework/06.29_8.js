@@ -25,9 +25,10 @@ const days = {
     11: 31,
 };
 const randomDays = [];
+const DATE_COUNT = 5;
 
 const monthFullDay = days[new Date().getMonth()];
-for (let i = 0; i < 5; i += 1) {
+for (let i = 0; i < DATE_COUNT; i += 1) {
     randomDays.push(Math.round(((Math.random() * monthFullDay) + 1)));
 }
 
@@ -48,4 +49,4 @@ while (dday >= 0) {
     dday -= days[today.getMonth() + (i += 1)];
 }
 
-console.log(`오늘(${today.getFullYear()}.${today.getMonth() + 1}.${today.getDay()}) + 100일은 ${(today.getMonth() % FULL_MONTH) + i}.${days[(today.getMonth() % FULL_MONTH) + i] + dday}일 입니다.`);
+console.log(`오늘(${today.getFullYear()}.${today.getMonth() + 1}.${today.getDay()})의 100일 후: ${(today.getMonth() % FULL_MONTH) + i}.${days[(today.getMonth() % FULL_MONTH) + i] + dday}일`);
