@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과제 4</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: aquamarine;
+            border: none;
+            border-radius: 5px;
+            font-weight: bolder;
+            font-style: italic;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            display: block;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            width: 20%;
+            box-sizing: border-box;
+            font-size: 1em;
+            border: 2px solid lightblue;
+            border-radius: 5px;
+        }
+
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="eng">(nothing)영어 수업 요일 선택 ></button>
+        <label id="l_eng" for="eng">요일을 선택해주세요.</label>
+    </div>
+
+    <div>
+        <button id="kor">(debounce)국어 수업 요일 선택 ></button>
+        <label id="l_kor" for="kor">요일을 선택해주세요.</label>
+    </div>
+
+    <div>
+        <button id="math">(throttle)수학 수업 요일 선택 ></button>
+        <label id="l_math" for="math">요일을 선택해주세요.</label>
+    </div>
+
+    <div>
+        <input type="text" id="searchInput" placeholder="검색어를 입력해주세요.">
+        <label id="searchLabel">검색 결과 : </label>
+    </div>
+
+    <script>
+        const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+
+        const nothing = (callBack) => callBack;
+
+        const debounce = (callBack, delay) => {
+            let timer = null;
+            return (...args) => {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(callBack, delay, ...args);
+            };
+        };
+
+        const throttle = (callBack, interval) => {
+            let timer = null;
+            return (...args) => {
+                if (timer) return;
+                timer = setTimeout(() => {
+                    callBack(...args);
+                    timer = null;
+                }, interval);
+            };
+        };
+
+        const getNextDay = () => {
+            let day = 0;
+            return () => {
+                if ((day += 1) === DAYS.length) day = 0;
+                return `${DAYS[day]}요일`;
+            };
+        };
+
+        const subjects =
+            [['eng', getNextDay(), nothing], ['kor', getNextDay(), debounce], ['math', getNextDay(), throttle]];
+
+        for (const [key, func, decorator] of subjects) {
+            document.getElementById(key).addEventListener('click', decorator(function () {
+                document.getElementById(`l_${key}`).innerHTML = func();
+            }, 500));
+        }
+
+        document.getElementById('searchInput').addEventListener('input', debounce(function () {
+            const inputBoxValue = document.getElementById('searchInput').value;
+            document.getElementById('searchLabel').innerText = '검색 결과 : ' + inputBoxValue;
+        }, 500));
+    </script>
+
+</body>
+
+</html>
