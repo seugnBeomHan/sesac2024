@@ -28,7 +28,7 @@ const randomDays = [];
 
 const monthFullDay = days[new Date().getMonth()];
 for (let i = 0; i < 5; i += 1) {
-    randomDays[i] = Math.round(((Math.random() * monthFullDay) + 1));
+    randomDays.push(Math.round(((Math.random() * monthFullDay) + 1)));
 }
 
 console.log(randomDays.sort((a, b) => b - a));

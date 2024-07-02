@@ -46,4 +46,5 @@ while (true) {
     }
 }
 
+console.log('개발팀 직원 목록: ', result.toString());
 assert.deepStrictEqual(result.toString(), 'Kim,Park,Choi');

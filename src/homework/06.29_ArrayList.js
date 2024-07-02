@@ -413,3 +413,14 @@ assert.deepStrictEqual(iter.next(), { value: 3, done: false });
 assert.deepStrictEqual(iter.next(), { value: 4, done: false });
 assert.deepStrictEqual(iter.next(), { value: 2000, done: false });
 assert.deepStrictEqual(iter.next(), { value: undefined, done: true });
+
+const addArrayTest = new ArrayList();
+addArrayTest.add([1, 2, 3, 4, 5]);
+addArrayTest.print();
+addArrayTest.removeIndex(3);
+addArrayTest.print();
+addArrayTest.add([10, 20, 30, 40, 50]);
+addArrayTest.print();
+addArrayTest.add(100, 2);
+addArrayTest.add(100, 6);
+addArrayTest.print();

@@ -9,14 +9,8 @@ const intersection = (setA, setB) => {
     const cache = new Map();
     const result = new Set();
 
-    setB.forEach(e => {
-        cache.set(e, e);
-    });
-
-    setA.forEach((e) => {
-        const value = cache.get(e);
-        if (value !== undefined) result.add(e);
-    });
+    setB.forEach((e) => { cache.set(e, e); });
+    setA.forEach((e) => { if (cache.get(e) !== undefined) result.add(e); });
 
     return [...result];
 };
@@ -26,14 +20,8 @@ const diff = (setA, setB) => {
     const cache = new Map();
     const result = new Set();
 
-    setB.forEach(e => {
-        cache.set(e, e);
-    });
-
-    setA.forEach((e) => {
-        const value = cache.get(e);
-        if (value === undefined) result.add(e);
-    });
+    setB.forEach((e) => { cache.set(e, e); });
+    setA.forEach((e) => { if (cache.get(e) === undefined) result.add(e); });
 
     return [...result];
 };

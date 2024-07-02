@@ -87,7 +87,6 @@ class Subway {
             (departuresIndex === arrivalsIndex)) {
             return true;
         }
-
         return false;
     }
 

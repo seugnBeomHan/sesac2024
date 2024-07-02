@@ -23,7 +23,6 @@ prompt.on('line', (input) => {
             console.log(`Total: ${value}`);
             prompt.close();
         }
-
         console.log(value);
     }
 }).on('close', () => process.exit());

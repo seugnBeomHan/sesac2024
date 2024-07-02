@@ -9,8 +9,8 @@ const printCalender = (date) => {
             oneWeek[startDayOfMonth] = i;
 
             if ((startDayOfMonth += 1) === WEEK_COUNT) {
-                startDayOfMonth = 0;
                 calender.push(oneWeek);
+                startDayOfMonth = 0;
                 oneWeek = [];
             }
         }
