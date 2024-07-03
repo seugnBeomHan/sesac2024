@@ -108,6 +108,14 @@ class ArrayList {
         return true;
     }
 
+    remove(value) {
+        if (this.isEmpty()) return;
+
+        if (value === undefined) return this.removeLast();
+        if (value === this.peek) return this.removeFirst();
+        return this.removeValue(value);
+    }
+
     removeFirst() {
         if (this.isEmpty()) return;
 
