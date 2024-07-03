@@ -190,7 +190,7 @@ class ArrayList extends Collection {
         if (this.isEmpty()) return;
 
         const result = this._array;
-        this._array = this._array.next || (this.#tail = { 'value': undefined });
+        this._array = this._array.next || (this.#tail = this.#createNewObj(undefined));
         delete result.next;
 
         this.#decreaseLength();
@@ -728,3 +728,4 @@ addArrayTest.print();
 addArrayTest.add(100, 2);
 addArrayTest.add(100, 6);
 addArrayTest.print();
+addArrayTest.clear();
