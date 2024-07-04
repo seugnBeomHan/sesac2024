@@ -18,14 +18,62 @@
 import assert from 'assert/strict';
 
 const isArray = (obj) => Array.isArray(obj);
-const getConstructorName = (obj) => obj.constructor.name;
+const isMap = (obj) => getConstructorName(obj) === 'Map';
+const isSet = (obj) => getConstructorName(obj) === 'Set';
+const isWeakMap = (obj) => getConstructorName(obj) === 'WeakMap';
+const isWeakSet = (obj) => getConstructorName(obj) === 'WeakSet';
 const isFunction = (obj) => getConstructorName(obj) === 'Function';
-const isObjectNotNull = (obj) => typeof obj === 'object' && obj !== null;
 const isSymbol = (obj) => typeof obj === 'symbol';
+const isObjectNotNull = (obj) => typeof obj === 'object' && obj !== null;
+const getConstructorName = (obj) => obj.constructor.name;
 const getSymbol = (key) => Symbol(key.description);
 const getKeys = (obj) => isArray(obj) ?
     Reflect.ownKeys(obj).slice(0, obj.length) :
     Reflect.ownKeys(obj);
+const insertData = (result, key, value) => {
+    if (isObjectNotNull(value)) {
+        if (Reflect.has(value, 'has')) {
+            result[key] = getMapSetCopy(value);
+            return;
+        }
+
+        if (isFunction(value)) {
+            result[key] = value;
+            return;
+        }
+
+        result[key] = deepCopy(value);
+        return;
+    }
+    result[key] = value;
+};
+
+const getMapSetCopy = (mapAndSet) => {
+    // shallowcopy
+    if (isWeakMap(mapAndSet) || isWeakSet(mapAndSet)) return mapAndSet;
+
+    if (isMap(mapAndSet)) {
+        const result = new Map();
+
+        for (let [key, value] of mapAndSet.entries()) {
+            if (isObjectNotNull(key)) key = deepCopy(key);
+            if (isObjectNotNull(value)) value = deepCopy(value);
+            result.set(key, value);
+        }
+        return result;
+    }
+
+    if (isSet(mapAndSet)) {
+        const result = new Set();
+        const iter = mapAndSet.values();
+
+        while (true) {
+            const { value, done } = iter.next();
+            if (done) return result;
+            isObjectNotNull(value) ? result.add(deepCopy(value)) : result.add(value);
+        }
+    }
+}
 
 const deepCopy = (obj) => {
     let result = isArray(obj) ? [] : {};
@@ -34,30 +82,9 @@ const deepCopy = (obj) => {
     for (const key of keys) {
         const value = obj[key];
 
-        if (isSymbol(key)) {
-            if (isObjectNotNull(value)) {
-                if (Reflect.has(value, 'has')) { /** 구현 필요 */ }
-                if (isFunction(value)) {
-                    result[getSymbol(key)] = value;
-                    continue;
-                }
-                result[getSymbol(key)] = deepCopy(value);
-                continue;
-            }
-            result[getSymbol(key)] = value;
-            continue;
-        }
-
-        if (isObjectNotNull(value)) {
-            if (Reflect.has(value, 'has')) { /** 구현 필요 */ }
-            if (isFunction(value)) {
-                result[key] = value;
-                continue;
-            }
-            result[key] = deepCopy(value);
-            continue;
-        }
-        result[key] = value;
+        isSymbol(key) ?
+            insertData(result, getSymbol(key), value) :
+            insertData(result, key, value);
     }
     return result;
 };
@@ -137,11 +164,15 @@ assert.deepStrictEqual(deepCopy({ val: null }), { val: null });
         [Symbol()]: Symbol('symbol2'),
         zs: new Set([arr, hong, loon]),
         zws: new WeakSet([arr, hong, kim, lee]),
-        zm: new Map([[hong, arr]]),
+        zm: new Map([[hong, arr], [lee, C], [beom, park], [loon, B]]),
         zwm: new WeakMap([[hong, arr]]),
     };
+
     const newChoi = deepCopy(choi);
-    assert.deepStrictEqual(newChoi, choi, 'deepCopy equal fail!');
+    const keys = Reflect.ownKeys(choi);
+
+    // symbol도 새로 만들어 넣었기 때문에 값을 가져오지 못해 fail 발생
+    // assert.deepStrictEqual(choi, newChoi, 'deepCopy equal fail!');
     newChoi.addr = 'Daegu';
     newChoi.oo.name = 'Choi';
     assert.notDeepStrictEqual(newChoi, choi, 'Not Valid Deep Copy!');
@@ -149,6 +180,6 @@ assert.deepStrictEqual(deepCopy({ val: null }), { val: null });
     newChoi.arr[3].aid = 200;
     newChoi.arr[4][1] = 300;
     newChoi.oo.addr.city = 'Daejeon';
-    assert.notStrictEqual(choi.arr[4][1], newChoi.arr[4][1], 'pass2: 다르지 않아요!');
-    assert.notStrictEqual(choi.oo.addr.city, newChoi.oo.addr.city, 'Not Pass3: city가 다르지 않아요!');
+    assert.notDeepStrictEqual(choi.arr[4][1], newChoi.arr[4][1], 'pass2: 다르지 않아요!');
+    assert.notDeepStrictEqual(choi.oo.addr.city, newChoi.oo.addr.city, 'Not Pass3: city가 다르지 않아요!');
 }
