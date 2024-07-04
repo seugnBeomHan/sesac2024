@@ -7,7 +7,6 @@ class Collection {
         if (this.#getConstructor() === 'Collection') {
             throw new ReferenceError('Collection type objects cannot be created');
         }
-
         this.#array = this.#getConstructor() === 'ArrayList' ? {} : [];
     }
 
@@ -116,17 +115,8 @@ class ArrayList extends Collection {
 
     add(value, index = this.size) {
         if (value === undefined) return;
-
         if (Array.isArray(value)) return this.#addArray(value);
-
-        if (this.isEmpty()) {
-            this._array.value = value;
-            this.#tail = this._array;
-
-            this.#increaseLength();
-            return true;
-        }
-
+        if (this.isEmpty()) return this.#addEmpty(value);
         return index >= this.size ?
             this.#addLast(value) :
             index <= 0 ?
@@ -181,6 +171,14 @@ class ArrayList extends Collection {
 
         targetPrev.next = newObj;
         newObj.next = target;
+
+        this.#increaseLength();
+        return true;
+    }
+
+    #addEmpty(value) {
+        this._array.value = value;
+        this.#tail = this._array;
 
         this.#increaseLength();
         return true;
@@ -729,3 +727,8 @@ addArrayTest.add(100, 2);
 addArrayTest.add(100, 6);
 addArrayTest.print();
 addArrayTest.clear();
+
+const lastArray = new ArrayList();
+lastArray.print();
+lastArray.add(10);
+lastArray.print();

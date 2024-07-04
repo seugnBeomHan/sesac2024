@@ -43,8 +43,8 @@ Array.prototype.sortBy = function (keyAndOrder) {
         result.sort((e1, e2) => e1[key] > e2[key] ? -1 : 1);
 };
 
+// 0629 uniqBy 함수 구현 과제
 Array.prototype.uniqBy = function (key) {
-    if (!isObjectKeyType(key)) return;
     return [...this.reduce((acc, cur) => acc.add(cur[key]), new Set())];
 }
 

@@ -5,7 +5,7 @@ class Emp {
     lastName;
 
     constructor() {
-        const proxyObj = new Proxy(this, {
+        return new Proxy(this, {
             get(target, prop, receiver) {
                 if (target.#isFullName(prop)) return `${target.firstName} ${target.lastName}`;
                 return Reflect.get(target, prop, receiver);
@@ -25,7 +25,6 @@ class Emp {
                 return Reflect.set(target, prop, val, receiver);
             }
         });
-        return proxyObj;
     }
 
     #changeUpperCase(str) {
