@@ -34,20 +34,20 @@ const insertData = (result, key, value) => {
     if (isObjectNotNull(value)) {
         if (Reflect.has(value, 'has')) {
             result[key] = getMapSetCopy(value);
-            return;
+            return result;
         }
 
         if (isFunction(value)) {
             result[key] = value;
-            return;
+            return result;
         }
 
         result[key] = deepCopy(value);
-        return;
+        return result;
     }
     result[key] = value;
+    return result;
 };
-
 const getMapSetCopy = (mapAndSet) => {
     // shallowcopy
     if (isWeakMap(mapAndSet) || isWeakSet(mapAndSet)) return mapAndSet;
@@ -70,24 +70,19 @@ const getMapSetCopy = (mapAndSet) => {
         while (true) {
             const { value, done } = iter.next();
             if (done) return result;
-            isObjectNotNull(value) ? result.add(deepCopy(value)) : result.add(value);
+            isObjectNotNull(value) ?
+                result.add(deepCopy(value)) :
+                result.add(value);
         }
     }
 }
 
-const deepCopy = (obj) => {
-    let result = isArray(obj) ? [] : {};
-    const keys = getKeys(obj);
-
-    for (const key of keys) {
-        const value = obj[key];
-
+const deepCopy = (obj) =>
+    getKeys(obj).reduce((acc, key) =>
         isSymbol(key) ?
-            insertData(result, getSymbol(key), value) :
-            insertData(result, key, value);
-    }
-    return result;
-};
+            insertData(acc, getSymbol(key), obj[key]) :
+            insertData(acc, key, obj[key]),
+        isArray(obj) ? [] : {});
 
 // test data
 const kim = { nid: 3, nm: 'Hong', addr: 'Busan' };
