@@ -23,10 +23,8 @@ const isSet = (obj) => getConstructorName(obj) === 'Set';
 const isWeakMap = (obj) => getConstructorName(obj) === 'WeakMap';
 const isWeakSet = (obj) => getConstructorName(obj) === 'WeakSet';
 const isFunction = (obj) => getConstructorName(obj) === 'Function';
-const isSymbol = (obj) => typeof obj === 'symbol';
 const isObjectNotNull = (obj) => typeof obj === 'object' && obj !== null;
 const getConstructorName = (obj) => obj.constructor.name;
-const getSymbol = (key) => Symbol(key.description);
 const getKeys = (obj) => isArray(obj) ?
     Reflect.ownKeys(obj).slice(0, obj.length) :
     Reflect.ownKeys(obj);
@@ -79,9 +77,7 @@ const getMapSetCopy = (mapAndSet) => {
 
 const deepCopy = (obj) =>
     getKeys(obj).reduce((acc, key) =>
-        isSymbol(key) ?
-            insertData(acc, getSymbol(key), obj[key]) :
-            insertData(acc, key, obj[key]),
+        insertData(acc, key, obj[key]),
         isArray(obj) ? [] : {});
 
 // test data
@@ -164,10 +160,9 @@ assert.deepStrictEqual(deepCopy({ val: null }), { val: null });
     };
 
     const newChoi = deepCopy(choi);
-    const keys = Reflect.ownKeys(choi);
 
-    // symbol도 새로 만들어 넣었기 때문에 값을 가져오지 못해 fail 발생
-    // assert.deepStrictEqual(choi, newChoi, 'deepCopy equal fail!');
+    // symbol은 primitive이기에 복사되어야 한다.
+    assert.deepStrictEqual(choi, newChoi, 'deepCopy equal fail!');
     newChoi.addr = 'Daegu';
     newChoi.oo.name = 'Choi';
     assert.notDeepStrictEqual(newChoi, choi, 'Not Valid Deep Copy!');
