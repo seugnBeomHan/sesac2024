@@ -60,7 +60,7 @@ assert.deepStrictEqual(searchByKoreanInitialSound(datas, 'ㄱㄴ'), []);
 assert.deepStrictEqual(searchByKoreanInitialSound(datas, 'ㅅㅁ'), ['고성군 토성면', '토성면 북면']);
 assert.deepStrictEqual(searchByKoreanInitialSound(datas, 'ㄱ1ㅅ'), ['김1수']);
 
-// Collection(stack, queue, arraylist)
+// Collection(stack, queue, arraylist) - 테스트 케이스 작성할 것
 
 // 캘린더 출력
 const today = new Date();
@@ -77,4 +77,4 @@ printCalender(`${today.getMonth() + 4}-${6}`);
 printCalender(`${today.getMonth() + 5}-${3}`);
 printCalender(`${today.getMonth() + 6}-${15}`);
 
-// never overflow
+// never overflow - 테스트 케이스 작성할 것
