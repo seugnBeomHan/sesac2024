@@ -10,7 +10,7 @@
  *      [collection]
  *          non constructor         (저는 직접적인 생성자 호출을 막았습니다, 이 부분은 자유)
  *          peek                    return value
- *          toString                return string
+ *          toString                return string ([0, 1, 2, 3, 4, 5...])
  *          toArray                 return array
  *          isEmpty                 return boolean
  *          size                    return number
@@ -23,8 +23,8 @@
  *          enqueue                 return this
  *          dequeue                 return value
  *      [array list]
- *          static arrayToList      return string({value: 1, next: {value: 2, next: {value: 3, next: undefined}}})
- *          static listToArray      return array 
+ *          static arrayToList      return string ({value: 1, next: {value: 2, next: undefined}})
+ *          static listToArray      return array
  *          add(value, index)       return this
  *          remove(value)           return value
  *          get(index)              return value
