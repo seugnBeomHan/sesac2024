@@ -64,18 +64,18 @@ assert.deepStrictEqual(searchByKoreanInitialSound(datas, 'ㄱ1ㅅ'), ['김1수']
 
 // 캘린더 출력
 const today = new Date();
-printCalender(`${today.getMonth() - 5}-${14}`);
-printCalender(`${today.getMonth() - 4}-${22}`);
-printCalender(`${today.getMonth() - 3}-${30}`);
-printCalender(`${today.getMonth() - 2}/${5}`);
-printCalender(`${today.getMonth() - 1}/${1}`);
-printCalender(`${today.getMonth()}/${15}`);
-printCalender(`${today.getMonth() + 1}.${today.getDay()}`);
-printCalender(`${today.getMonth() + 2}.${25}`);
-printCalender(`${today.getMonth() + 3}.${18}`);
-printCalender(`${today.getMonth() + 4}-${6}`);
-printCalender(`${today.getMonth() + 5}-${3}`);
-printCalender(`${today.getMonth() + 6}-${15}`);
+printCalender('2024-01-05');
+printCalender('2024-02-15');
+printCalender('2024-03-24');
+printCalender('2024-04-11');
+printCalender('2024-05-3');
+printCalender('2024-06-1');
+printCalender('2024-07-4');
+printCalender('2024-08-30');
+printCalender('2024-09-29');
+printCalender('2024-10-17');
+printCalender('2024-11-13');
+printCalender('2024-12-9');
 
 // never overflow
 assert.deepStrictEqual(neverOverflow(10000), 50005000);
