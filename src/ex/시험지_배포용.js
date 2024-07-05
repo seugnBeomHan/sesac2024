@@ -65,6 +65,7 @@ export function searchByKoreanInitialSound(words, initCho) {
 
 }
 
+// 월, 목, 금, 월, 수, 토, 월, 목, 일, 화, 금 일
 export function printCalender(date) {
 
 }
