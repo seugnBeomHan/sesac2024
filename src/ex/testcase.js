@@ -1,5 +1,5 @@
 import assert from 'assert/strict';
-import { keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound, printCalender } from './test_1.js';
+import { keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound, Collection, Stack, Queue, ArrayList, printCalender } from './test_1.js';
 
 // 키페어
 assert.deepStrictEqual(keyPair([1, 3, 4, 5], 7), [1, 2]);
@@ -77,4 +77,9 @@ printCalender(`${today.getMonth() + 4}-${6}`);
 printCalender(`${today.getMonth() + 5}-${3}`);
 printCalender(`${today.getMonth() + 6}-${15}`);
 
-// never overflow - 테스트 케이스 작성할 것
+// never overflow
+assert.deepStrictEqual(neverOverflow(10000), 50005000);
+assert.deepStrictEqual(neverOverflow(100000), 5000050000);
+assert.deepStrictEqual(neverOverflow(1000000), 500000500000);
+assert.deepStrictEqual(neverOverflow(10000000), 50000005000000);
+assert.deepStrictEqual(neverOverflow(100000000), 5000000050000000n);
