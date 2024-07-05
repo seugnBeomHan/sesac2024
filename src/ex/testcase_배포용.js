@@ -2,8 +2,9 @@ import assert from 'assert/strict';
 import {
     keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound,
     Stack, Queue, ArrayList, printCalender, neverOverflow
-} from './test_3.js';
+} from './시험지_배포용.js';
 
+// 구현 순서에 맞춰 변경하시면 됩니다.
 리듀스();
 키페어();
 프록시();
@@ -226,5 +227,4 @@ function 네버_오버플로우() {
     assert.deepStrictEqual(neverOverflow(1000000), 500000500000);
     assert.deepStrictEqual(neverOverflow(10000000), 50000005000000);
     assert.deepStrictEqual(neverOverflow(100000000), 5000000050000000);
-    // assert.deepStrictEqual(neverOverflow(1000000000), 500000000500000000);
 }
