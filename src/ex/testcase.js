@@ -1,5 +1,5 @@
 import assert from 'assert/strict';
-import { keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound, Collection, Stack, Queue, ArrayList, printCalender } from './test_1.js';
+import { keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound, Collection, Stack, Queue, ArrayList, printCalender, neverOverflow } from './test_1.js';
 
 // 키페어
 assert.deepStrictEqual(keyPair([1, 3, 4, 5], 7), [1, 2]);
@@ -10,7 +10,7 @@ assert.deepStrictEqual(keyPair([1, 2, 2, 3, 4, 4, 5, 7], 9), [4, 6]);
 assert.deepStrictEqual(keyPair([1, 2, 3, 4, 5, 7], 12), [4, 5]);
 
 // 리듀스
-assert.deepStrictEqual(reduce([1, 2, 3], (acc, cur) => acc + cur, 0), 6);
+assert.deepStrictEqual(reduce([1, 2, 3], (acc, cur) => acc + cur), 6);
 assert.deepStrictEqual(reduce([1, 2, 3, 4, 5], (acc, cur) => acc + cur), 15);
 assert.deepStrictEqual(reduce([1, 2, 3, 4, 5], (acc, cur) => acc * cur), 120);
 assert.deepStrictEqual(reduce([2, 2, 2], (acc, cur) => acc * cur), 8);
@@ -82,4 +82,5 @@ assert.deepStrictEqual(neverOverflow(10000), 50005000);
 assert.deepStrictEqual(neverOverflow(100000), 5000050000);
 assert.deepStrictEqual(neverOverflow(1000000), 500000500000);
 assert.deepStrictEqual(neverOverflow(10000000), 50000005000000);
-assert.deepStrictEqual(neverOverflow(100000000), 5000000050000000n);
+assert.deepStrictEqual(neverOverflow(100000000), 5000000050000000);
+assert.deepStrictEqual(neverOverflow(1000000000), 500000000500000000);
