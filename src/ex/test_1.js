@@ -142,18 +142,14 @@ export class Collection {
     #array;
     constructor(...values) {
         if (this.constructor.name === 'Collection') throw new ReferenceError('생성자 호출 불가');
-        this.#array = values.length !== 0 ? values : [];
+        this.#array = values.length !== 0 ? this.#insertData(values) : [];
     }
 
     get _array() { return this.#array; }
     peek() {
-        switch (this.#getConstructorName()) {
-            case 'Stack':
-            case 'ArrayList': return this.#array.at(-1);
-            case 'Queue': return this.#array[0];
-        }
+        return this.#array.at(-1);
     }
-    toString() { return `[${this.#array.join(',')}]`; }
+    toString() { return `[${this.#array.join(', ')}]`; }
     toArray() { return [...this.#array]; }
     isEmpty() { return this.#array.length === 0; }
     size() { return this.#array.length; }
@@ -163,7 +159,8 @@ export class Collection {
         let index = 0;
         const array = this.#array;
         switch (this.#getConstructorName()) {
-            case 'Stack': return {
+            case 'Stack':
+            case 'Queue': return {
                 next() {
                     return {
                         value: array[array.length - (index += 1)],
@@ -171,24 +168,34 @@ export class Collection {
                     }
                 }
             }
-            case 'ArrayList':
-            case 'Queue': return {
+            case 'ArrayList': return {
                 next() {
                     return {
                         value: array[index++],
-                        done: index <= array.length
+                        done: index > array.length
                     }
                 }
             }
         }
     }
     #getConstructorName() { return this.constructor.name; }
+    #insertData(array) {
+        return array.reduce((array, cur) => {
+            Array.isArray(cur) ? array.push(...cur) : array.push(cur);
+            return array;
+        }, []);
+    }
 }
 export class ArrayList extends Collection {
-    static arrayToList(array) { return array.reduce((list, cur) => list = { value: cur, next: list }, undefined); }
+    static arrayToList(array) {
+        return array.reduceRight((list, cur) => {
+            list = { value: cur, next: list }
+            return list
+        }, undefined);
+    }
     static listToArray(list) {
         const result = [];
-        const node = list;
+        let node = list;
 
         while (node !== undefined) {
             result.push(node.value);
@@ -209,8 +216,9 @@ export class ArrayList extends Collection {
     }
 
     remove(value) {
+        if (value === undefined) return this;
         const deleteIndex = this.indexOf(value);
-        this._array.splice(deleteIndex, deleteIndex);
+        this._array.splice(deleteIndex, 1);
         return this;
     }
 
@@ -252,7 +260,7 @@ export class Queue extends Collection {
         super(...values);
     }
 
-    enequeue(value) {
+    enqueue(value) {
         this._array.unshift(value);
         return this
     }
@@ -271,15 +279,14 @@ export function printCalender(date) {
 
     let calender = '';
 
-    for (let i = 1; i <= thisMonthLastDate; i += 1) {
-        if (i < startDay + 1) {
-            calender += ''.padStart(3, ' ');
-            continue;
-        }
+    for (let i = 0; i < startDay; i += 1) {
+        calender += ''.padStart(3, ' ');
+    }
 
+    for (let i = 1; i <= thisMonthLastDate; i += 1) {
         calender += `${i}`.padStart(3, ' ');
 
-        if (i % 7 === 0) {
+        if ((i + startDay) % 7 === 0) {
             calender += '\n';
         }
     }
@@ -296,9 +303,6 @@ export function neverOverflow(factorial) {
     let result = 0;
 
     result += recursive(factorial);
-    if (startNum === 0) {
-        return result;
-    }
     prevStartNum = startNum;
 
     while (true) {
@@ -311,7 +315,7 @@ export function neverOverflow(factorial) {
 
     function recursive(num) {
         try {
-            if (num <= 1) return 1;
+            if (num <= 0) return 0;
             return num + recursive(num - 1);
         } catch (error) {
             startNum = num;
