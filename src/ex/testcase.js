@@ -2,7 +2,7 @@ import assert from 'assert/strict';
 import {
     keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound,
     Stack, Queue, ArrayList, printCalender, neverOverflow
-} from './test_3.js';
+} from './test_4.js';
 
 리듀스();
 키페어();
