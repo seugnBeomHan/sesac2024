@@ -1,17 +1,17 @@
 import assert from 'assert/strict';
 import {
     keyPair, reduce, Emp, telfmt, searchByKoreanInitialSound,
-    Stack, Queue, ArrayList, printCalender, neverOverflow
-} from './test_4.js';
+    /*Stack, Queue, ArrayList,*/ printCalender, neverOverflow
+} from './test_5.js';
 
-리듀스();
-키페어();
-프록시();
 전화번호_정규식();
+리듀스();
 초성_검색();
 캘린더();
+프록시();
 네버_오버플로우();
-컬렉션();
+키페어();
+// 컬렉션();
 
 function 키페어() {
     assert.deepStrictEqual(keyPair([1, 3, 4, 5], 7), [1, 2]);

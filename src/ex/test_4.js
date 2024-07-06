@@ -49,9 +49,9 @@ function throttle(cb, delay) {
     return (...args) => {
         if (timer) return;
         setTimeout(() => {
-            cb();
+            cb(...args);
             timer = null;
-        }, delay, ...args);
+        }, delay,);
     }
 }
 
@@ -73,10 +73,13 @@ export function telfmt(tel) {
     const C = 4;
     const A = localNum === 2 ? 2 : tel.length % 4 === 0 ? 4 : 3;
     const B = tel.length - (C + A);
-    const regExp = tel.length <= 8 ? new RegExp(`(\\d{${A}})(\\d{${B}})`) :
+    const regExp = tel.length <= 8 ?
+        new RegExp(`(\\d{${A}})(\\d{${B}})`) :
         new RegExp(`(\\d{${A}})(\\d{${B}})(\\d{${C}})`);
 
-    return tel.length <= 8 ? tel.replace(regExp, '$1-$2') : tel.replace(regExp, '$1-$2-$3');
+    return tel.length <= 8 ?
+        tel.replace(regExp, '$1-$2') :
+        tel.replace(regExp, '$1-$2-$3');
 }
 
 export function searchByKoreanInitialSound(datas, chos) {
