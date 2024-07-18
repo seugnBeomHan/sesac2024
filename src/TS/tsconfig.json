@@ -86,12 +86,12 @@
     "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
     "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
-    "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
-    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     "noImplicitThis": true,                           /* Enable error reporting when 'this' is given the type 'any'. */
     "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
     // 여기까지 strict family, strict만 켜져 있어도 적용 완료
-
+    
+    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
     // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
     // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. */
     

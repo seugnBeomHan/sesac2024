@@ -29,7 +29,7 @@
 //     { id: 'XL', price: 15000 },
 // ];
 
-// const sizeOption = { XS: 1, S: 5, M: 2, L: 2, XL: 4 };
+// const sizeOption = { XS: 1, S: 5, MM: 2, L: 2, XL: 4 };
 
 // const totalPrice = SIZE.reduce((curPrice, size) =>
 //     curPrice += (sizeOption[size.id] * size.price), 0
@@ -66,22 +66,22 @@
 //     curPrice + (sizeOption[size.id] * size.price), 0
 // );
 
-// 5안
-const SIZE = [
-    { id: 'XS', price: 8000 },
-    { id: 'S', price: 10000 },
-    { id: 'M', price: 12000 },
-    { id: 'L', price: 14000 },
-    { id: 'XL', price: 15000 },
-];
+// // 5안
+// const SIZE = [
+//     { id: 'XS', price: 8000 },
+//     { id: 'S', price: 10000 },
+//     { id: 'M', price: 12000 },
+//     { id: 'L', price: 14000 },
+//     { id: 'XL', price: 15000 },
+// ];
 
-const sizeOption = { XS: 1, S: 5, M: 2, L: 2, XL: 4 };
+// const sizeOption = { XS: 1, S: 5, M: 2, L: 2, XL: 4 };
 
-const totalPrice = SIZE.reduce((curPrice, { id, price }) => {
-    if (id === 'XS' || id === 'S' || id === 'M' || id === 'L' || id === 'XL') {
-        return curPrice += (sizeOption[id] * price);
-    }
-    return curPrice;
-}, 0);
+// const totalPrice = SIZE.reduce((curPrice, { id, price }) => {
+//     if (id === 'XS' || id === 'S' || id === 'M' || id === 'L' || id === 'XL') {
+//         return curPrice += (sizeOption[id] * price);
+//     }
+//     return curPrice;
+// }, 0);
 
-console.log(totalPrice);
+// console.log(totalPrice);
