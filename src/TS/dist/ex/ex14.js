@@ -1,23 +1,23 @@
-/**
- * ArrayList
- *
- * add
- * remove
- *
- */
 import assert from 'assert/strict';
 import { Collection } from './ex12.js';
 class ArrayList extends Collection {
     static arrayToList(array) {
         if (array.length === 0)
-            return {};
+            return;
         let node = { value: array[array.length - 1] };
         for (let i = array.length - 2; i > -1; i -= 1) {
             node = { value: array[i], next: node };
         }
         return node;
     }
-    static ListToArray(list) {
+    static listToArray(list) {
+        const ret = [];
+        let node = list;
+        while (node !== undefined) {
+            ret.push(node.value);
+            node = node.next;
+        }
+        return ret;
     }
     constructor(...values) {
         super(...values);
@@ -50,7 +50,7 @@ class ArrayList extends Collection {
         return this.array.indexOf(value);
     }
     contains(value) {
-        this.array.includes(value);
+        return this.array.includes(value);
     }
     peek() {
         return this.array[0];
@@ -72,6 +72,8 @@ class ArrayList extends Collection {
     }
 }
 const list = new ArrayList(...[1, 2, 3, 4, 5]);
+console.log(ArrayList.arrayToList(list.toArray()));
+console.log(ArrayList.listToArray(ArrayList.arrayToList(list.toArray())));
 list.print();
 list.add(10);
 list.add(100, 0);
@@ -150,9 +152,9 @@ assert.deepStrictEqual(removeList.toArray(), [2, 3, 5, 1, 2, 3, 4, 5]);
 assert.deepStrictEqual(removeList.get(0), 2);
 assert.deepStrictEqual(removeList.get(1), 3);
 assert.deepStrictEqual(removeList.get(2), 5);
-assert.deepStrictEqual(removeList.get(removeList.size()), 5);
+assert.deepStrictEqual(removeList.get(removeList.size()), undefined);
 assert.deepStrictEqual(removeList.get(removeList.size() - 1), 5);
-removeList.set(-1, 100);
+removeList.set(0, 100);
 assert.deepStrictEqual(removeList.toArray(), [100, 3, 5, 1, 2, 3, 4, 5]);
 removeList.set(0, 200);
 removeList.set(1, 300);
@@ -160,9 +162,9 @@ removeList.set(2, 400);
 removeList.set(3, 500);
 assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 5]);
 removeList.set(removeList.size(), 1000);
-assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 1000]);
+assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 5, 1000]);
 removeList.set(removeList.size() - 1, 2000);
-assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 2000]);
+assert.deepStrictEqual(removeList.toArray(), [200, 300, 400, 500, 2, 3, 4, 5, 2000]);
 removeList.print();
 assert.deepStrictEqual(removeList.indexOf(100), -1);
 assert.deepStrictEqual(removeList.indexOf(200), 0);
@@ -180,6 +182,7 @@ assert.deepStrictEqual(iter.next(), { value: 500, done: false });
 assert.deepStrictEqual(iter.next(), { value: 2, done: false });
 assert.deepStrictEqual(iter.next(), { value: 3, done: false });
 assert.deepStrictEqual(iter.next(), { value: 4, done: false });
+assert.deepStrictEqual(iter.next(), { value: 5, done: false });
 assert.deepStrictEqual(iter.next(), { value: 2000, done: false });
 assert.deepStrictEqual(iter.next(), { value: undefined, done: true });
 const addArrayTest = new ArrayList();

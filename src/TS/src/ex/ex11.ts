@@ -1,7 +1,5 @@
 import assert from 'assert/strict';
 
-
-
 class Subway {
     private readonly LINE_2 = [
         '신도림', '대림', '구로디지털단지', '신대방', '신림', '봉천', '서울대입구', '낙성대',
@@ -22,11 +20,10 @@ class Subway {
         this.isOver = this.inputIsValid();
     }
 
-    inputIsValid(): boolean {
+    private inputIsValid(): boolean {
         if ((this.start === -1 || this.end === -1) || this.start === this.end) {
             this.fail('잘못 된 입력입니다. 다시 입력하세요.');
         }
-
         return this.start > this.end;
     }
 
