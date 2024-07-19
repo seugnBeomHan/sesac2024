@@ -1,4 +1,3 @@
-"use strict";
 console.log('Hello TS');
 console.log('replaceAll'.replaceAll('A', 'X'));
 function add(num1, num2, num3) {
@@ -127,3 +126,4 @@ function isArray(target) {
 console.log(isArray([1, 2, 3, 4]));
 console.log(isArray([1, 2, 3, '4']));
 console.log(isArray([1, 2, true, '4']));
+export {};

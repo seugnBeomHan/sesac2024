@@ -14,7 +14,7 @@ const getPosts = async () => {
 }
 
 getPosts().then((arr) => {
-    for (const ele of arr) {
-        console.log(ele);
-    }
+    const [posts, coments] = arr;
+    console.log(posts);
+    console.log(coments);
 }).catch((err) => { console.log(err); });
