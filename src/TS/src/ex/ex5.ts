@@ -1,4 +1,4 @@
-function factorial(outerNum: number): number {
+function factorial(outerNum: number) {
     let reStartNum = 0;
     let ret = 0
 
@@ -10,7 +10,6 @@ function factorial(outerNum: number): number {
         if (reStartNum === reStartNumPrev) return ret;
         reStartNumPrev = reStartNum;
     }
-
     return ret;
 
     function recursive(innerNum: number): number {

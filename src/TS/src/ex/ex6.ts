@@ -1,9 +1,12 @@
 function once(cb: (num1: number, num2: number) => string) {
     let isCalled = false;
+
     return function (carNum1: number, carNum2: number) {
         if (isCalled) return;
+
         isCalled = true;
         setTimeout(() => { isCalled = false }, 1000);
+
         return cb(carNum1, carNum2);
     }
 }

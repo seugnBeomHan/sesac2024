@@ -47,7 +47,7 @@ export abstract class Collection<T> {
 
     abstract peek(): T | undefined;
     abstract print(): void;
-    abstract [Symbol.iterator](): { next: () => { value: T | undefined, done: boolean } };
+    abstract [Symbol.iterator](): { next(): { value: T | undefined, done: boolean } };
 }
 
 class Stack<T> extends Collection<T> {

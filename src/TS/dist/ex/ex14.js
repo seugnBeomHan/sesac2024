@@ -2,21 +2,24 @@ import assert from 'assert/strict';
 import { Collection } from './ex12.js';
 class ArrayList extends Collection {
     static arrayToList(array) {
-        if (array.length === 0)
-            return;
-        let node = { value: array[array.length - 1] };
+        let curValue = array[array.length - 1];
+        if (!curValue)
+            return {};
+        let node = { value: curValue };
         for (let i = array.length - 2; i > -1; i -= 1) {
-            node = { value: array[i], next: node };
+            curValue = array[i];
+            if (!curValue)
+                continue;
+            node = { value: curValue, next: node };
         }
         return node;
     }
     static listToArray(list) {
         const ret = [];
         let node = list;
-        while (node !== undefined) {
+        do {
             ret.push(node.value);
-            node = node.next;
-        }
+        } while ((node = node.next) !== undefined);
         return ret;
     }
     constructor(...values) {
@@ -73,7 +76,10 @@ class ArrayList extends Collection {
 }
 const list = new ArrayList(...[1, 2, 3, 4, 5]);
 console.log(ArrayList.arrayToList(list.toArray()));
-console.log(ArrayList.listToArray(ArrayList.arrayToList(list.toArray())));
+const arrayToList = ArrayList.arrayToList(list.toArray());
+if ('value' in arrayToList) {
+    console.log(ArrayList.listToArray(arrayToList));
+}
 list.print();
 list.add(10);
 list.add(100, 0);

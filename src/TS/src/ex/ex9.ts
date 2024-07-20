@@ -39,7 +39,6 @@ assert.deepStrictEqual(deleteArray(arr, 2), [1, 2]);
 assert.deepStrictEqual(deleteArray(arr, 1, 3), [1, 4]);
 assert.deepStrictEqual(arr, [1, 2, 3, 4]);
 
-
 const Hong = { id: 1, name: 'Hong' };
 const Kim = { id: 2, name: 'Kim' };
 const Lee = { id: 3, name: 'Lee' };

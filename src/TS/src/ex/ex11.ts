@@ -20,7 +20,7 @@ class Subway {
         this.isOver = this.inputIsValid();
     }
 
-    private inputIsValid(): boolean {
+    private inputIsValid() {
         if ((this.start === -1 || this.end === -1) || this.start === this.end) {
             this.fail('잘못 된 입력입니다. 다시 입력하세요.');
         }

@@ -2,7 +2,9 @@ import assert from 'assert/strict';
 function keyPair(array, pair) {
     const cache = new Map();
     for (let i = 0; i < array.length; i += 1) {
-        const curValue = array[i] ?? Number.MAX_SAFE_INTEGER;
+        const curValue = array[i];
+        if (!curValue)
+            continue;
         const pairNum = cache.get(pair - curValue);
         if (pairNum)
             return [pairNum, i];

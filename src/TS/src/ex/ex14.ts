@@ -1,30 +1,32 @@
 import assert from 'assert/strict';
 import { Collection } from './ex12.js';
 
-type TList<U> = { value: U | undefined, next?: TList<U> };
+type TNode<U> = { value: U, next?: TNode<U> };
 
 class ArrayList<T> extends Collection<T> {
-    static arrayToList<U>(array: U[]): TList<U> | undefined {
-        if (array.length === 0) return;
+    static arrayToList<U>(array: U[]): TNode<U> | {} {
+        let curValue = array[array.length - 1];
+        if (!curValue) return {};
 
-        let node: TList<U> = { value: array[array.length - 1] };
+        let node: TNode<U> = { value: curValue };
 
         for (let i = array.length - 2; i > -1; i -= 1) {
-            node = { value: array[i], next: node };
-        }
+            curValue = array[i];
+            if (!curValue) continue;
 
+            node = { value: curValue, next: node };
+        }
         return node;
     }
 
-    static listToArray<U>(list: TList<U>) {
-        const ret = [];
-        let node: TList<U> | undefined = list;
+    static listToArray<U>(list: TNode<U>) {
+        const ret: U[] = [];
+        let node: TNode<U> | undefined = list;
 
         while (node !== undefined) {
             ret.push(node.value);
             node = node.next;
         }
-
         return ret;
     }
 
@@ -96,7 +98,12 @@ class ArrayList<T> extends Collection<T> {
 const list = new ArrayList(...[1, 2, 3, 4, 5]);
 
 console.log(ArrayList.arrayToList(list.toArray()));
-console.log(ArrayList.listToArray(ArrayList.arrayToList(list.toArray())!));
+
+const arrayToList = ArrayList.arrayToList(list.toArray())
+
+if ('value' in arrayToList) {
+    console.log(ArrayList.listToArray(arrayToList));
+}
 
 list.print();
 list.add(10);
