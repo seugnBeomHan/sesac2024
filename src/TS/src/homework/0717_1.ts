@@ -1,3 +1,37 @@
+// interface User {
+//     id: number;
+//     name: string;
+// }
+
+// interface Dept {
+//     id: number;
+//     dname: string;
+//     captain: string;
+// }
+
+// interface Ud2 {
+//     id?: number;
+//     name?: string;
+//     dname?: string;
+//     captain?: string;
+//     addr: string;
+// }
+
+// interface User {
+//     id: number;
+//     name?: string;
+// }
+
+// interface Dept {
+//     id: number;
+//     dname?: string;
+//     captain?: string;
+// }
+
+// interface Ud2 extends User, Dept {
+//     addr: string;
+// }
+
 interface User {
     id: number;
     name: string;
@@ -10,11 +44,7 @@ interface Dept {
 }
 
 interface Ud2 {
-    id?: number;
-    name?: string;
-    dname?: string;
-    captain?: string;
-    addr: string;
+        
 }
 
 // 다음 코드가 오류가 없으면 통과!

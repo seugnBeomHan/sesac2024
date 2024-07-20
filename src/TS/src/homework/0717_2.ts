@@ -1,17 +1,15 @@
 import assert from 'assert/strict';
 
-type KeyType = string | symbol;
-
 declare global {
     interface Array<T> {
         firstObject: T;
         lastObject: T;
-        mapBy(key: KeyType): unknown[];
-        findBy(key: KeyType, value: unknown): T;
-        filterBy(key: KeyType, value: unknown): T[];
-        rejectBy(key: KeyType, value: unknown): T[];
-        sortBy(key: string): T[];
-        uniqBy(key: KeyType): T[];
+        mapBy(key: keyof T): unknown[];
+        findBy(key: keyof T, value: unknown): T;
+        filterBy(key: keyof T, value: unknown): T[];
+        rejectBy(key: keyof T, value: unknown): T[];
+        sortBy(key: keyof T, order?: 'asc' | 'desc'): T[];
+        uniqBy(key: keyof T): T[];
     }
 }
 
@@ -39,17 +37,13 @@ Array.prototype.rejectBy = function (key, value) {
     return this.filter((e) => e[key] !== value);
 };
 
-Array.prototype.sortBy = function (keyOrOrder) {
+Array.prototype.sortBy = function (key, order = 'asc') {
     let [...copy] = this;
-    const [key, order = 'asc'] = keyOrOrder.split(':');
 
-    if (key !== undefined) {
-        if (order === 'asc') {
-            return copy.sort((a, b) => a[key] > b[key] ? 1 : -1);
-        }
-        return copy.sort((a, b) => a[key] < b[key] ? 1 : -1);
+    if (order === 'asc') {
+        return copy.sort((a, b) => a[key] > b[key] ? 1 : -1);
     }
-    return copy;
+    return copy.sort((a, b) => a[key] > b[key] ? -1 : 1);
 };
 
 Array.prototype.uniqBy = function (key) {
@@ -83,7 +77,7 @@ assert.deepStrictEqual(users.rejectBy('id', 2), [hong, lee]);
 assert.deepStrictEqual(users.rejectBy('name', 'Hong'), [lee, kim]);
 assert.deepStrictEqual(users, [hong, lee, kim]);
 assert.deepStrictEqual(users.sortBy('name'), [hong, kim, lee]);
-assert.deepStrictEqual(users.sortBy('name:desc'), [lee, kim, hong]);
+assert.deepStrictEqual(users.sortBy('name', 'desc'), [lee, kim, hong]);
 assert.deepStrictEqual(users, [hong, lee, kim]);
 
 // uniqBy
@@ -102,17 +96,14 @@ const usersUniq = [hongUniq, hongUniq2, kimUniq, leeUniq, leeUniq2, parkUniq, ko
 assert.deepStrictEqual(usersUniq.uniqBy('dept'), ['HR', 'Server', 'Front', 'Sales']);
 assert.deepStrictEqual(usersUniq.uniqBy('name'), ['Hong', 'Kim', 'Lee', 'Park', 'Ko', 'Loon', 'Choi']);
 
-function groupBy<T, K extends KeyType>
-    (array: T[], callbackFn: (element: T) => K) {
-    const retObj: { [key: KeyType]: T[]; } = {};
+function groupBy<T>(array: T[], callbackFn: (element: T) => string) {
+    const newData: { [key: string]: T[] } = {};
 
-    return array.reduce((obj, cur) => {
+    return array.reduce((newDataObj, cur) => {
         const newKey = callbackFn(cur);
-        obj[newKey] !== undefined ?
-            obj[newKey].push(cur) :
-            obj[newKey] = [cur];
-        return obj;
-    }, retObj);
+        newDataObj[newKey] ? newDataObj[newKey].push(cur) : newDataObj[newKey] = [cur];
+        return newDataObj;
+    }, newData);
 }
 
 const inventory = [
