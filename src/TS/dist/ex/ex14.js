@@ -17,9 +17,10 @@ class ArrayList extends Collection {
     static listToArray(list) {
         const ret = [];
         let node = list;
-        do {
+        while (node !== undefined) {
             ret.push(node.value);
-        } while ((node = node.next) !== undefined);
+            node = node.next;
+        }
         return ret;
     }
     constructor(...values) {

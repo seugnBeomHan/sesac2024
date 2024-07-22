@@ -17,16 +17,12 @@ Array.prototype.filterBy = function (key, value) {
 Array.prototype.rejectBy = function (key, value) {
     return this.filter((e) => e[key] !== value);
 };
-Array.prototype.sortBy = function (keyOrOrder) {
+Array.prototype.sortBy = function (key, order = 'asc') {
     let [...copy] = this;
-    const [key, order = 'asc'] = keyOrOrder.split(':');
-    if (key !== undefined) {
-        if (order === 'asc') {
-            return copy.sort((a, b) => a[key] > b[key] ? 1 : -1);
-        }
-        return copy.sort((a, b) => a[key] < b[key] ? 1 : -1);
+    if (order === 'asc') {
+        return copy.sort((a, b) => a[key] > b[key] ? 1 : -1);
     }
-    return copy;
+    return copy.sort((a, b) => a[key] > b[key] ? -1 : 1);
 };
 Array.prototype.uniqBy = function (key) {
     return [...this.reduce((set, cur) => set.add(cur[key]), new Set())];
@@ -55,7 +51,7 @@ assert.deepStrictEqual(users.rejectBy('id', 2), [hong, lee]);
 assert.deepStrictEqual(users.rejectBy('name', 'Hong'), [lee, kim]);
 assert.deepStrictEqual(users, [hong, lee, kim]);
 assert.deepStrictEqual(users.sortBy('name'), [hong, kim, lee]);
-assert.deepStrictEqual(users.sortBy('name:desc'), [lee, kim, hong]);
+assert.deepStrictEqual(users.sortBy('name', 'desc'), [lee, kim, hong]);
 assert.deepStrictEqual(users, [hong, lee, kim]);
 // uniqBy
 const hongUniq = { id: 1, name: 'Hong', dept: 'HR' };
@@ -73,14 +69,12 @@ const usersUniq = [hongUniq, hongUniq2, kimUniq, leeUniq, leeUniq2, parkUniq, ko
 assert.deepStrictEqual(usersUniq.uniqBy('dept'), ['HR', 'Server', 'Front', 'Sales']);
 assert.deepStrictEqual(usersUniq.uniqBy('name'), ['Hong', 'Kim', 'Lee', 'Park', 'Ko', 'Loon', 'Choi']);
 function groupBy(array, callbackFn) {
-    const retObj = {};
-    return array.reduce((obj, cur) => {
+    const newData = {};
+    return array.reduce((newDataObj, cur) => {
         const newKey = callbackFn(cur);
-        obj[newKey] !== undefined ?
-            obj[newKey].push(cur) :
-            obj[newKey] = [cur];
-        return obj;
-    }, retObj);
+        newDataObj[newKey] ? newDataObj[newKey].push(cur) : newDataObj[newKey] = [cur];
+        return newDataObj;
+    }, newData);
 }
 const inventory = [
     { name: "asparagus", type: "vegetables", quantity: 5 },
