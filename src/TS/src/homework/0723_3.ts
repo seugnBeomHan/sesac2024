@@ -10,15 +10,11 @@
  * Error type만 걸러내고, 나머지는 string으로 내로잉 해 문자열을 출력한다.
  */
 
-const isErrorObject = (error: unknown): error is Error => {
-    if (error
-        && typeof error === 'object'
-        && error instanceof Error
-        && 'message' in error) {
-        return true;
-    }
-    return false;
-}
+const isErrorObject = (error: unknown): error is Error =>
+    error !== null
+    && typeof error === 'object'
+    && error instanceof Error
+    && 'message' in error;
 
 try {
     // throw new Error('some error!!!!');   // 가

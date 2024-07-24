@@ -1,4 +1,8 @@
-const isStringNumber = (value: unknown): value is [string, number] => Array.isArray(value);
+const isStringNumber = (value: unknown): value is [string, number] =>
+    Array.isArray(value)
+    && value.length === 2
+    && typeof value[0] === 'string'
+    && typeof value[1] === 'number';
 
 const f1 = (value: number | string | boolean | [string, number]) => {
     if (isStringNumber(value)) {
@@ -25,9 +29,7 @@ class Retriever implements Dog {
     }
 }
 
-function isDog(input: Animal): input is Dog {
-    return 'name' in input;
-}
+const isDog = (input: Animal): input is Dog => 'name' in input;
 
 const donggu = new Retriever('동구');
 console.log(isDog(donggu));
