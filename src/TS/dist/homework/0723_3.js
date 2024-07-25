@@ -16,7 +16,8 @@ const isErrorObject = (error) => error !== null
 try {
     // throw new Error('some error!!!!');   // 가
     // throw 'some string error!!!';        // 나
-    throw ['some', 'array', 'error']; // 다
+    // throw ['some', 'array', 'error'];    // 다
+    throw null; // 라
 }
 catch (error) {
     isErrorObject(error) ? console.log(error.message) : console.log(String(error));

@@ -27,5 +27,3 @@ const symbolLee = { id: 3, name: 'Lee', [leeSymbol]: leeSymbol };
 const symbolUsers = [symbolHong, symbolKim, symbolLee];
 assert.deepStrictEqual(deleteArray(symbolUsers, 2), [symbolHong, symbolKim]);
 assert.deepStrictEqual(deleteArray(symbolUsers, 1, 2), [symbolHong, symbolLee]);
-// assert.deepStrictEqual(deleteArray(symbolUsers, kimSymbol, kimSymbol), [symbolHong, symbolLee]);
-// assert.deepStrictEqual(deleteArray(symbolUsers, leeSymbol, leeSymbol), [symbolHong, symbolKim]);
