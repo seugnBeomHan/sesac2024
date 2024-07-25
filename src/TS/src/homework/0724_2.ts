@@ -1,7 +1,11 @@
-type FirstArgs<F> = F extends (a: (infer I), b: (infer J)) => string ? I : F;
-type SecondArgs<F> = F extends (a: (infer I), b: (infer J)) => string ? J : F;
-type Args<F> = F extends (a: (infer I), b: (infer J)) => string ? I | J : F;
-type ArgsG<F> = F extends (...args: (infer I)[]) => unknown ? I : F;
+type FirstArgs<F extends (...args: any) => any> =
+    F extends (...args: infer I) => any ? I[0] : F;
+
+type SecondArgs<F extends (...args: any) => any> =
+    F extends (...args: infer I) => unknown ? I[1] : F;
+
+type Args<F extends (...args: any) => any> =
+    F extends (...args: infer I) => unknown ? I[number] : F;
 
 function add(a: number, b: string) {
     return `${a} - ${b}`;
@@ -9,9 +13,10 @@ function add(a: number, b: string) {
 
 type A = FirstArgs<typeof add>;  // number
 type B = SecondArgs<typeof add>; // string
-type C = Args<typeof add>;    // number | string
+type C = Args<typeof add>;       // number | string
 
-type AU = ArgsG<typeof String.prototype.endsWith>;
+type AU = Args<typeof String.prototype.endsWith>;
 // ⇒ string | number | undefined
-type AN = ArgsG<typeof String.prototype.charAt>;
+
+type AN = Args<typeof String.prototype.charAt>;
 // ⇒ number
