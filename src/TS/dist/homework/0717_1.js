@@ -1,3 +1,4 @@
+// 1안
 // interface User {
 //     id: number;
 //     name: string;

@@ -5,8 +5,8 @@ function debounce(cb: (...args: any) => void, ms: number) {
     let timer: MyReturnType<typeof setTimeout> | null = null;
 
     return (...args: unknown[]) => {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(cb, ms, ...args);
+        if (timer) clearTimeout(timer); // setTimeout을 취소하고
+        timer = setTimeout(cb, ms, ...args); // 다시 등록한다.
     }
 }
 
@@ -14,10 +14,10 @@ function throttle(cb: (...args: any) => void, ms: number) {
     let timer: MyReturnType<typeof setTimeout> | null = null;
 
     return (...args: unknown[]) => {
-        if (timer) return;
+        if (timer) return; // 시간 범위 내 setTimeout 명령을 유지한다.
         timer = setTimeout(() => {
             cb(...args);
-            timer = null;
+            timer = null; // 한 번 실행 후 다시 실행되기 위해 초기화한다.
         }, ms);
     }
 }

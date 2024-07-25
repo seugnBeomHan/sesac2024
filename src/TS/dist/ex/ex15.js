@@ -1,4 +1,8 @@
 class Animal {
+    배고픔_정도;
+    constructor(배고픔_정도) {
+        this.배고픔_정도 = 배고픔_정도;
+    }
     bark() { }
     ;
 }
@@ -27,6 +31,11 @@ class 독수리 extends Animal {
     }
 }
 class Lion extends Animal {
+    발톱;
+    constructor(배고픔_정도, 발톱) {
+        super(배고픔_정도);
+        this.발톱 = 발톱;
+    }
     bark() {
         console.log('사자');
     }
@@ -46,14 +55,14 @@ class Cat extends Animal {
         console.log('고양이');
     }
 }
-const ILion = new Lion();
-const ITiger = new Tiger();
-const ISnake = new Snake();
-const ICat = new Cat();
+const ILion = new Lion(8, '발톱');
+const ITiger = new Tiger(3);
+const ISnake = new Snake(5);
+const ICat = new Cat(2);
 const animalArray = [ILion, ITiger, ISnake, ICat];
-const Ibird = new bird();
-const 까치_인스턴스 = new 까치();
-const 독수리_인스턴스 = new 독수리();
+const Ibird = new bird(5);
+const 까치_인스턴스 = new 까치(7);
+const 독수리_인스턴스 = new 독수리(4);
 for (let i = 0; i < animalArray.length; i += 1) {
     animalArray[i]?.bark();
 }

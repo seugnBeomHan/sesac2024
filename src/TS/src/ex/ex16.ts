@@ -70,7 +70,7 @@ const defaultNode = createNode({ name: 'lim', age: 25 });
 
 type OnlyStringProperties<T> = {
     [k in keyof T]: T[k] extends string ? k : never;
-}[keyof T];
+}//[keyof T];
 
 /**
  * {

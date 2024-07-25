@@ -3,7 +3,7 @@ Reflect.defineProperty(Array.prototype, 'firstObject', {
     get() { return this[0]; }
 });
 Reflect.defineProperty(Array.prototype, 'lastObject', {
-    get() { return this[this.length - 1]; }
+    get() { return this.at(-1); }
 });
 Array.prototype.mapBy = function (key) {
     return this.map((e) => e[key]);

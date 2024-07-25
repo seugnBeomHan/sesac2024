@@ -4,8 +4,8 @@ function registUserObj({ name, age }: { name: string; age: number }) {
     return { id, name, age };
 }
 
-type Parameters<T extends (...args: any) => any> =
-    T extends (...args: infer I) => any ? I[number] : never;
+type Parameters<F extends (...args: any) => any> =
+    F extends (...args: infer I) => any ? I[number] : never;
 
 type RegistUserObj = Parameters<typeof registUserObj>;
 
