@@ -7,5 +7,10 @@ let users: FullUser[] = [
     { id: 1, addr: 'Seoul' },
 ];
 
-const ret: FullUser = users.reduce((acc, user) => ({ ...acc, ...user }));
+// 어떻게 쓰는거지
+type MergedArray<T extends unknown[]> = {
+    [k in keyof T[number]]: T[number][k];
+}
+
+const ret = users.reduce((acc, user) => ({ ...acc, ...user }));
 console.log(ret);

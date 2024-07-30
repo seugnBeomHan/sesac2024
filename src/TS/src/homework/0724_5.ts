@@ -1,4 +1,4 @@
-type MyReturnType<F extends (...arsg: any) => any> =
+type MyReturnType<F extends (...arsg: any) => unknown> =
     F extends (...args: any) => infer I ? I : never;
 
 function debounce(cb: (...args: any) => void, ms: number) {

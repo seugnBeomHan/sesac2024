@@ -1,10 +1,10 @@
-type FirstArgs<F extends (...args: any) => any> =
-    F extends (...args: infer I) => any ? I[0] : never;
+type FirstArgs<F extends (...args: any) => unknown> =
+    F extends (...args: infer I) => unknown ? I[0] : never;
 
-type SecondArgs<F extends (...args: any) => any> =
+type SecondArgs<F extends (...args: any) => unknown> =
     F extends (...args: infer I) => unknown ? I[1] : never;
 
-type Args<F extends (...args: any) => any> =
+type Args<F extends (...args: any) => unknown> =
     F extends (...args: infer I) => unknown ? I[number] : never;
 
 function add(a: number, b: string) {
